@@ -7,14 +7,78 @@ h1 {
 	font-size: 7vw;
 	margin-top: 0;
 }
+h2 ~ p {
+	font-size: 0.8em;
+	font-style: italic;
+	margin: 1em auto 0;
+	max-width: 70%;
+	text-align: center;
+}
 a {
 	color: #f00;
 }
+/* HEADER STYLES */
+.header {
+	background-color: #000;
+	color: #fff;
+}
 
+.header-logo {
+	background-color: #000;
+	box-sizing: border-box;
+	display: block;
+	height: 10vh;
+	padding-top: 10px;
+	position: relative;
+	text-align: center;
+	width: 10vh;
+
+}
+.header-logo:hover,
+.header-logo:active {
+	background-color: #ed6e2f;
+}
+.header-logo img {
+	width: 4.3vh;
+}
+.header-nav {
+	float: right;
+	padding: 5.5vh 60px 0 0;
+}
+.header-nav > li {
+	display: inline-block;
+	margin-left: 1em;
+}
+.header-nav > li ~ li {
+	border-left: 1px solid rgba(255, 255, 255, 0.3);
+	padding-left: 1em;
+}
+.header-nav a {
+	color: #fff;
+	font-size: 0.8rem;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;	
+}
+.header-nav a:hover, 
+.header-nav a:active {
+	background-color: yellow;
+	color: #ed6e2f;
+}
+.header-nav > li:first-child a {
+	color: #ed6e2f;
+}
+.heaer-nav > li:first-child a:hover {
+	color: #fff;
+}
 /* HERO STYLES */
 .full-hero {
 	background-color: #c7dbfc;
+	box-sizing: border-box;
+	display: block;
 	height: 50vh;
+	position: relative;
+	width: 100%
 }
 
 /* SOCIAL STYLES*/
@@ -29,22 +93,33 @@ a {
 	font-weight: bold;
 	height: 2.5em;
 	line-height: 1;
+	
 	margin: 0 .0.5em;
 	padding-top: 0.85em;
 	text-align: center;
 	text-decoration: none;
+
 	vertical-align: middle;
 	width: 2.5em;
 }
+.social-link:hover, 
+.social-link:active {
+	background-color: #ed6e2f;
+}
+
 .social-list {
+	bottom: 0%;
+	float: left;
 	list-style: none;
 	padding: 0;
+	position: absolute;
 	text-align: center;
 }
 .social-list > li {
 	display: inline-block;
-	margin: 0 .0.5em;
+	margin: 0 .0.5em;	
 }
+
 
 /* BIO STYLES */
 .bio-wrapper {
@@ -80,6 +155,7 @@ a {
 }
 .bio-copy {
 	font-size: 1em;
+	line-height: 1.5;
 }
 .bio-copy a {
 	color: green;
