@@ -1,0 +1,77 @@
+---
+layout: w3schools
+---
+
+<!-- Navigation (Stays on Top) -->
+<div class="w3-top w3-bar w3-black">
+<a href="#home" class="w3-bar-item w3-button">Home</a>
+<a href="#about" class="w3-bar-item w3-button">About</a>
+<a href="#members" class="w3-bar-item w3-button">Members</a>
+<a href="#contact" class="w3-bar-item w3-button">Contact</a>
+</div>
+
+<!-- Start Content -->
+<div id="home" class="w3-content">
+
+<!-- Slides -->
+<img class="slides" src="/images/img_la.jpg" width="100%">
+<img class="slides" src="/images/img_ny.jpg" width="100%">
+<img class="slides" src="/images/img_ch.jpg" width="100%">
+<script>
+w3.slideshow(".slides", 1500);
+</script>
+
+<!-- About -->
+<div id="about" class="w3-container w3-padding-32">
+<h1 class="w3-center">The Band</h1>
+<p>This is our band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<!-- Members -->
+<div id="members" class="w3-container w3-padding-32">
+<h2 class="w3-center">Band Members</h2>
+<div class="w3-row w3-center">
+
+<div class="w3-third">
+<img src="/images/img_bandmember.jpg" alt="Name1" style="width:60%">
+</br>Tom
+</div>
+
+<div class="w3-third">
+<img src="/images/img_bandmember.jpg" alt="Name2" style="width:60%">
+</br>Dick
+</div>
+
+<div class="w3-third">
+<img src="/images/img_bandmember.jpg" alt="Name3" style="width:60%">
+</br>Harry
+</div>
+
+</div>
+</div>
+
+<!-- Contact -->
+<div id="contact" class="w3-container w3-center w3-padding-32">
+<h2 class="w3-wide">CONTACT</h2>
+Chicago, US<br>
+Phone: +00 151515<br>
+Email: mail@mail.com<br>
+<p class="w3-opacity w3-center"><i>Fan? Drop a note!</i></p>
+
+<form action="https://getsimpleform.com/messages?form_api_token=abfb7af81b57e4f9c870ed603f133d19" 
+method="post" target="_blank">
+<input type='hidden' name='redirect_to' value='https://mrichardsjboit.github.io/'>
+<input class="w3-input" type="text" placeholder="Name" required name="name">
+<input class="w3-input" type="text" placeholder="Email" required name="email">
+<input class="w3-input" type="text" placeholder="Message" required name="message"><br> 
+<textarea name="content"></textarea>
+<button class="w3-button w3-black" type="submit">SEND</button>
+</form>
+
+<br>
+<img src="/images/map.jpg" class="w3-image" style="width:100%">
+</div>
+
+<!-- End Content -->
+</div>
+
