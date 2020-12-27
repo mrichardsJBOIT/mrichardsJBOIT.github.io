@@ -1,11 +1,22 @@
 /* GLOBAL STYLES*/
+
 html {
 	box-shadow: 0 0 0 30px #000 inset;
 	padding: 0 30px;
 }
 body {
+	display: flex;
+	flex-direction: column;
 	font-family: helvetica, arial, sans;
-	line-height: 1;
+	/*line-height: 1;*/
+	min-height: 100vh;
+}
+.content-container {
+	/*flex-grow: 1;*/
+	display: flex;
+	flex: 1 1 auto;
+	padding-top: 10vh;
+	width: 100%; 
 }
 h1 {
 	font-size: 7vw;
@@ -19,6 +30,7 @@ a {
 }
 p {
 	line-height: 1.5;
+	margin: 0.75em 0;
 }
 h2 ~ p {
 	font-size: 0.8em;
@@ -114,13 +126,35 @@ h2 ~ p {
     color: #ccc;
 }
 
+/* COLUMN STYLES */
+.col-three {
+	display: flex;
+	flex: 1;
+}
+.col {
+	box-sizing: border-box;
+	padding: 2em;
+}
+.col-three .col ~ .col {
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+.col-three .col-nav {
+	flex: 0 1 15em;
+}
+.col-three .col-content {
+	flex: 1;
+}
+.col-three .col-aside {
+	flex: 0 1 20em;
+}
+
 /* HERO STYLES */
 .full-hero {
 	background-color: #c7dbfc;
 	background-repeat: no-repeat;
 	background-size: cover;
 	box-sizing: border-box;
-	height: 100vh;
+	height: 90vh;
 	padding-top: 10vh;
 	
 }
@@ -202,17 +236,30 @@ h2 ~ p {
 	text-align: center;
 }
 .home-callout {
+	align-items: center;
 	background-color: #000;
 	color: #fff;
+	display: flex;
 	padding: 7vh 0;
 }
+.home-callout h3 {
+	color: inherit;
+	margin-top: 1em;
+}
 .callout-title {
+	flex: 1;
+	/*flex-basis: 0;*/
+	/*flex-grow: 1;*/
 	font-size: 5.75vw;
 	text-align: right;
 	text-transform: uppercase;
 }
 .callout-copy {
+	flex: 0 0 45em;
+	/*flex-basis: 45em;*/
+	/*flex-shrink: 0;*/
 	font-size: 0.8rem;
+	padding: 0 3vw;
 }
 
 /* BIO STYLES */
@@ -247,4 +294,42 @@ h2 ~ p {
 }
 .bio-copy {
 	font-size: 0.75em;
+}
+
+/* GALLERY STYLES */
+.gallery-thumbs {
+	height: 90vh;
+	overflow: scroll;
+}
+.gallery-thumbs > div {
+	cursor: pointer;
+}
+.gallery-thumbs img {
+	box-sizing: border-box;
+	box-shadow: 0 0 0 5px transparent;
+	display: inline-block;
+	margin: 0 0 10px;
+	opacity: 0.5;
+	transition: all 0.5s ease-in-out;
+	width: 100%;
+}
+.gallery-thumbs img:hover {
+  /*box-shadow: 0 0 0 5px #ed6e2f;*/
+  opacity: 1;
+}
+.gallery-thumbs .current img {
+  box-shadow: 0 0 0 5px #ed6e2f;
+  opacity: 1;
+}
+.gallery-photo {
+position: relative;
+}
+.gallery-photo img {
+width: 100%;
+}
+.gallery-info {
+font-size: 0.8rem;
+}
+.gallery-info h3 {
+margin-bottom: 1em;
 }
