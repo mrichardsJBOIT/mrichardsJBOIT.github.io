@@ -618,6 +618,9 @@ text-align: center;
     	border: 0;
     	padding: 0;
     }
+    .header-nav li:last-child {
+    	margin-bottom: 1em;
+    }
     .header-nav li:first-child a {
        color: #fff;
      }
