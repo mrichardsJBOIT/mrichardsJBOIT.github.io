@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Sinclair Spectrum
+description: The origins of interest
 postHero: /images/zxspectrum48k.jpg
 author: Mark
 authorTwitter: https://twitter.com/
