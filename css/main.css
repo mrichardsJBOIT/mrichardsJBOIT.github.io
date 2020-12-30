@@ -503,12 +503,16 @@ text-align: center;
        width: auto;
     }
 
-  
-
+ 
 
 	/* BLOG STYLES */
+	.blog-cols {
+		flex-direction: column;
+	}
 	.blog-recent {
-      display: none;
+      /*display: none;*/
+      flex: 1;
+      text-align: center;
     }
     .blog-previews {
       padding: 0;
