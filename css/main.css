@@ -472,6 +472,26 @@ text-align: center;
 		box-shadow: none;
 		padding: 0;
 	}
+
+	/* HEADER STYES */
+	.header-nav {
+		padding: 2vh 1em 0 0;
+	}
+	.headernav > li {
+		margin-left: 0.25em;
+	}
+	.header-nav > li ~ li {
+		padding-left: 0.25em;
+	}
+	.nav-links a {
+		font-size: 3.25vw;
+	}
+	.header-logo {
+		left: auto;
+	}
+
+
+	/* BLOG STYLES */
 	.post-aside {
 		display: none;
 	}
