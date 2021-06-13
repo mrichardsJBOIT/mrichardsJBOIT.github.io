@@ -4,7 +4,7 @@ title: This is the title of the post part 2
 postHero: /images/shark.jpg
 author: Me, Myself, and I
 authorTwitter: https://twitter.com/mhartl
-gravatar: https://gravatar.com/avatar/ffda7d145b83c4b118f982401f962ca6?s=150
+gravatar: https://gravatar.com/avatar/9acf5d5d47540382469bb5d6d12337a4?s=150
 postFooter: Additional information, and maybe a <a href="#">this..</a>
 ---
 

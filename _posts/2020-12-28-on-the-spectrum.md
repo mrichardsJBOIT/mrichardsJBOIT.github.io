@@ -5,7 +5,7 @@ description: The origins of interest
 postHero: /images/zxspectrum48k.jpg
 author: Mark
 authorTwitter: https://twitter.com/
-gravatar: https://gravatar.com/avatar/ffda7d145b83c4b118f982401f962ca6?s=150
+gravatar: https://gravatar.com/avatar/9acf5d5d47540382469bb5d6d12337a4?s=150
 postFooter: Sometimes life goes in circles...
 ---
 
