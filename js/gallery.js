@@ -1,16 +1,20 @@
 // Activate the image gallery
 
 function activeGallery() {
+
 	let thumbnails = document.querySelectorAll("#gallery-thumbs > div > img");
 	let mainImage  = document.querySelector("#gallery-photo img");
 	const currentClass = "current";
-	// image info to be updated
-
 
   thumbnails.forEach(function(thumbnail) {
+		//Preload large images
+
+		let newSrc = thumbnail.dataset.largeVersion;
+		let largeVersion = new Image();
+		largeVersion.src = newSrc;
     thumbnail.addEventListener("click", function(){
 			//Set clicked image as the main image
-			let newSrc = thumbnail.dataset.largeVersion;
+
 			let newAlt = thumbnail.getAttribute("alt");
 			mainImage.setAttribute("src", newSrc);
 			mainImage.setAttribute("alt", newAlt);
