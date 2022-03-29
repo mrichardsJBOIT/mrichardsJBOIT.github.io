@@ -42,9 +42,9 @@ img, a:hover {
 .zf-clearBoth {
 	clear:both;
 }
-/* ol, ul {
+.zf-ol, .zf-ul {
 	list-style: none outside none;
-} */
+}
 .zf-normalText {
 	font-size:13px;
 	line-height:1.5;
