@@ -1,13 +1,13 @@
 <head>
   {% if page.title %}
-    <title>{{ page.title }} | Test Page</title>
+    <title>{{ page.title }} | Always Gr8ful</title>
   {% else %}
     <title>Mark Richards Technical Bio</title>
   {% endif %}
   {% if page.description %}
     <meta name="description" content="{{ page.description }}">
   {% else %}
-    <meta name="description" content="This is a dangerous site.">
+    <meta name="description" content="Introducing gr8fuldev.dev">
   {% endif %}
   <link href="/favicon.ico" rel="icon">
   <meta charset="utf-8">
@@ -21,6 +21,12 @@
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
       activeGallery();  
+    });    
+  </script>
+  <script type="text/javascript" src="/js/contact.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      contactForm();  
     });    
   </script>
 </head>
