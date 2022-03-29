@@ -16,4 +16,4 @@ the spleen and regulating the circulation....
 
 <img class="pull-left" src="https://placekitten.com/g/400/200" alt="kitten">
 
-This whole site was built by folliwng Michael Hartls *Learn Enough CSS To Be Dangerous* turtorial.  I quite enjoyed it and it certainly allowed me to get to grips with html, css, jekyll and other web type tech that I hadn;t touched before or in a while. I've edited the orignal text that was here.
+This whole site was built by folliwng Michael Hartls *Learn Enough CSS To Be Dangerous* turtorial.  I quite enjoyed it and it certainly allowed me to get to grips with html, css, jekyll and other web type tech that I hadn't touched before or in a while. I've edited the orignal text that was here.
