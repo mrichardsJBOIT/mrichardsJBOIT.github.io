@@ -3,7 +3,7 @@ layout: post
 title: This is the title of the post part 2
 postHero: /images/shark.jpg
 author: Me, Myself, and I
-authorTwitter: https://twitter.com/mhartl
+authorTwitter: https://twitter.com/Gr8tfulDev
 gravatar: https://gravatar.com/avatar/9acf5d5d47540382469bb5d6d12337a4?s=150
 postFooter: Additional information, and maybe a <a href="#">this..</a>
 ---
