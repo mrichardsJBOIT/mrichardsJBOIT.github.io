@@ -1,6 +1,6 @@
 /* $Id: $ */
 @charset "UTF-8";
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,caption, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+/* html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,caption, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -13,7 +13,7 @@ body {
 	color: #444444;
 	font: 75%/1.3 Arial, Helvetica, sans-serif;
 	margin: 0 auto;
-}
+} */
 
 input, input[type="text"], input[type="search"], isindex, textarea, button {
 	outline:none;
@@ -24,7 +24,7 @@ input, input[type="text"], input[type="search"], isindex, textarea, button {
     box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-img, a {
+/* img, a {
 	border:0px;
 	outline:none;
 	color:#3a6cae;
@@ -32,7 +32,7 @@ img, a {
 }
 img, a:hover {
 	text-decoration:underline;
-}
+} */
 .zf-flLeft {
 	float:left;
 }
@@ -42,9 +42,9 @@ img, a:hover {
 .zf-clearBoth {
 	clear:both;
 }
-ol, ul {
+/* ol, ul {
 	list-style: none outside none;
-}
+} */
 .zf-normalText {
 	font-size:13px;
 	line-height:1.5;
