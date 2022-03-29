@@ -90,7 +90,7 @@ img, a:hover {
 	background:#f5f5f5;
 }
 
-.zf-content-container {
+.zf-form-container {
 	/*flex-grow: 1;*/
 	flex: 1 1 auto;
 	padding-top: 10vh;
@@ -102,7 +102,6 @@ img, a:hover {
 }
 
 .zf-templateWidth { 
-	width:800px;
 	width: max-content;
 	margin:1% auto;	
 }
