@@ -3,7 +3,7 @@ layout: post
 title: Hello World
 postHero: /images/shark.jpg
 author: Mark
-authorTwitter: https://twitter.com/Gr8tfulDev
+authorTwitter: https://twitter.com/reallyGr8fulDev
 gravatar: https://gravatar.com/avatar/9acf5d5d47540382469bb5d6d12337a4?s=150
 postFooter: Additional information, and maybe a <a href="#">link or two</a>
 ---

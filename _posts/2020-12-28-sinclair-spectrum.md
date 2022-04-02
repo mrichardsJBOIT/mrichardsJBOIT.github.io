@@ -4,7 +4,7 @@ title: Sinclair Spectrum
 description: The origins of interest
 postHero: /images/zxspectrum48k.jpg
 author: Mark
-authorTwitter: https://twitter.com/
+authorTwitter: https://twitter.com/reallyGr8fulDev
 gravatar: https://gravatar.com/avatar/9acf5d5d47540382469bb5d6d12337a4?s=150
 postFooter: Sometimes life goes in circles...
 ---
