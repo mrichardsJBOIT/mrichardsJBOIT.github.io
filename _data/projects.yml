@@ -1,27 +1,26 @@
 - name: Earth Wave
   url: https://earth-wave.online/
   tag: Rails 8 · e-commerce
-  description: Rails 8 online shop with product options, cart line items and subscription-ready checkout.
+  description: A Rails 8 shop built to learn the stack properly — product options with compound cart keys, per-option line items, and checkout that stays out of the way.
 
-- name: Doohly
+- name: Doohly (Workplace Media)
   url: https://www.pixelpimp.com.au
-  tag: DOOH · Workplace Media
-  description: RSS feed manager and API-driven digital out-of-home screen platform packages.
+  tag: DOOH · RSS · API
+  description: Client work for Workplace Media — an RSS feed manager with a public API (PixelPimp), a proof of concept pulling the SBS news feed, and content packages that keep digital out-of-home screens fed and on schedule.
 
 - name: JAC Media
-  url: https://jacmedia.com.au
   tag: DOOH · weather & news
-  description: Weather and news content packages for DOOH networks, engineered as reusable plugins.
+  description: Weather and news packages for JAC Media's DOOH network — modular builds keyed to screen formats, so the same pipeline plugs into different hardware and layouts.
 
 - name: TR Solutions
   url: https://trsolutions.dev
   tag: Astro · Cloudflare
-  description: My trading name's landing presence — sole trader work and consultancy referrals.
+  description: The trading side of things — a small Astro landing page on Cloudflare Workers for sole trader work and consultancy referrals.
 
 - name: Surface Oracle
   tag: Rails 8 · research
-  description: Rails 8 exploration project — news discovery and feed pipelines, used to bootstrap new work fast.
+  description: A Rails 8 exploration project — news discovery and feed pipelines used to bootstrap new work fast, and to keep my hand in the whole stack.
 
 - name: Model ops lab
   tag: Local LLMs · RAG
-  description: Running and benchmarking local LLMs (Gemma, Qwen, IQuest) for Rails dev-agent use — with a RAG layer in the loop.
+  description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — with a RAG layer in the loop. Slower than the cloud, a lot more interesting.
