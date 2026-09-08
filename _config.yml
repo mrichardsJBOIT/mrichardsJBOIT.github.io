@@ -11,6 +11,10 @@ description: >-
 url: "https://www.gr8ful.dev"
 baseurl: ""
 
+# Fully custom design — opt out of any default theme
+# (github-pages brings jekyll-theme-primer unless disabled)
+theme: null
+
 # Author
 author:
   name: Mark Richards
@@ -34,6 +38,7 @@ social:
 
 # Plugins (GitHub Pages compatible)
 plugins:
+  - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
