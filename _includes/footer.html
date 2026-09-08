@@ -1,15 +1,24 @@
-<footer class="footer">
-	<a class="footer-logo" href="/">
-		<img src="/images/logo.png" alt="Learn Enough" />
-	</a>
-	<nav>
-		<ul class="footer-nav nav-links">
-			{% include nav-links.html %}
-		</ul>
-	</nav>
-	<nav>
-		<ul class="footer-nav nav-links">
-			{% include social-links.html %}
-		</ul>
-	</nav>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-mark">G</span>
+      <p class="footer-tagline">{{ site.tagline }}</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="{{ site.author.business }}" rel="me">TR Solutions</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="footer-social">
+      <a href="https://github.com/{{ site.author.github }}" aria-label="GitHub" rel="me"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" aria-label="LinkedIn" rel="me"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://twitter.com/{{ site.author.twitter }}" aria-label="Twitter / X" rel="me"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="mailto:{{ site.author.email }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+  </div>
+  <p class="footer-legal">© {{ site.time | date: "%Y" }} {{ site.author.name }} · <a href="{{ site.author.business }}" rel="me">TR Solutions</a></p>
 </footer>

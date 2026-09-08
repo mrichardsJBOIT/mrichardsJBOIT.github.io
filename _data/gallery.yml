@@ -1,0 +1,83 @@
+- title: Venice Beach
+  small: /images/small/beach.jpg
+  large: /images/large/beach.jpg
+  alt: Venice Beach, California
+  description: An overhead shot of Venice Beach.
+
+- title: Catamaran
+  small: /images/small/boat.jpg
+  large: /images/large/boat.jpg
+  alt: Catamaran on Moorea lagoon
+  description: A catamaran on Moorea lagoon, French Polynesia.
+
+- title: Leaf insect
+  small: /images/small/bug.jpg
+  large: /images/large/bug.jpg
+  alt: A green leaf insect
+  description: A green leaf insect.
+
+- title: Desert vista
+  small: /images/small/desert.jpg
+  large: /images/large/desert.jpg
+  alt: Joshua Tree National Park
+  description: A view of Joshua Tree National Park.
+
+- title: Disney Hall
+  small: /images/small/disney.jpg
+  large: /images/large/disney.jpg
+  alt: Walt Disney Concert Hall
+  description: Walt Disney Concert Hall in downtown Los Angeles.
+
+- title: Koi
+  small: /images/small/fish.jpg
+  large: /images/large/fish.jpg
+  alt: Group of koi in a Japanese garden
+  description: A group of koi in a Japanese garden.
+
+- title: The Colosseum
+  small: /images/small/flavian.jpg
+  large: /images/large/flavian.jpg
+  alt: Flavian Amphitheatre, Rome
+  description: The Flavian Amphitheatre (Colosseum) in Rome.
+
+- title: Chinese Garden
+  small: /images/small/huntington.jpg
+  large: /images/large/huntington.jpg
+  alt: The Huntington Chinese Garden
+  description: The Chinese Garden at The Huntington, San Marino, CA.
+
+- title: Orchid
+  small: /images/small/orchid.jpg
+  large: /images/large/orchid.jpg
+  alt: A single orchid
+  description: The original orchid from the CSS &amp; Layout course.
+
+- title: The Pantheon
+  small: /images/small/pantheon.jpg
+  large: /images/large/pantheon.jpg
+  alt: The Pantheon, Rome
+  description: The Pantheon in Rome.
+
+- title: Great White
+  small: /images/small/shark.jpg
+  large: /images/large/shark.jpg
+  alt: Great white shark
+  description: The background shark from the CSS &amp; Layout course.
+
+- title: Snow Mountain
+  small: /images/small/snow.jpg
+  large: /images/large/snow.jpg
+  alt: Mammoth Mountain in California
+  description: Mammoth Mountain in California.
+
+- title: Pacific Sunset
+  small: /images/small/sunset.jpg
+  large: /images/large/sunset.jpg
+  alt: Sunset over the Pacific
+  description: A sunset over the Pacific Ocean.
+
+- title: Sea Turtle
+  small: /images/small/turtle.jpg
+  large: /images/large/turtle.jpg
+  alt: A friendly sea turtle
+  description: A friendly sea turtle.

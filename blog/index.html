@@ -1,29 +1,23 @@
 ---
 layout: default
+title: Blog
+description: Writing from Mark Richards (Gr8ful Dev)
 ---
-<div class="page blog-index">
-    <h1>Bloggie Blog</h1>
-    <div class="col-two blog-cols">
-        <div class="col col-aside blog-recent">            
-            {% include recent-posts.html %}
-        </div>
 
-        <div class="col col-content blog-previews">
-            {% for post in site.posts %}
-            <div class="blog-posts">
-                <header class="post-header">
-                    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-                    <div class="post-byline">
-                        <img src="{{ post.gravatar }}">
-                        <a href="{{ post.authorTwitter }}" class="social-link">Tw</a>
-                        by: {{ post.author }}
-                        <span> - {{ post.date | date: '%B %d, %Y' }}</span>
-                    </div>
-                </header>
-                <div class="posts-image" style="background-image:url({{ post.postHero }})"></div>
-                {{ post.excerpt }}
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+<section class="section">
+  <div class="container">
+    <h2>Blog</h2>
+    <p class="section-sub">Occasional writing on software, perseverance and the bits in between.</p>
+    <ul class="post-list">
+      {% for post in site.posts %}
+      <li class="post-item">
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+        {% if post.excerpt %}
+        <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

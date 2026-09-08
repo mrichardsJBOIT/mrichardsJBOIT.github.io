@@ -1,28 +1,25 @@
 <head>
-  {% if page.title %}
-    <title>{{ page.title }} | Always Gr8ful</title>
-  {% else %}
-    <title>Mark Richards Technical Bio</title>
-  {% endif %}
-  {% if page.description %}
-    <meta name="description" content="{{ page.description }}">
-  {% else %}
-    <meta name="description" content="Introducing gr8fuldev.dev">
-  {% endif %}
-  <link href="/favicon.ico" rel="icon">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@100&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/fonts/fontawesome-free-5.15.1-web/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
-  <link rel="stylesheet" type="text/css" href="/css/zoho-form.css">
-  <script type="text/javascript" src="js/zoho-validations.js"></script> 
-  <script type="text/javascript" src="/js/gallery.js"></script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-      activeGallery();  
-    });    
-  </script>
+  <title>{% if page.title %}{{ page.title | escape }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
+  {% if page.description %}
+  <meta name="description" content="{{ page.description | escape }}">
+  {% else %}
+  <meta name="description" content="{{ site.description | escape }}">
+  {% endif %}
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  {% feed_meta %}
+  {% seo %}
+
+  <!-- Fonts: Fraunces (display serif) + Sora (humanist sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,400&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (CDN, no vendored copy) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/site.js" defer></script>
 </head>
