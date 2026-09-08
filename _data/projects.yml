@@ -1,5 +1,5 @@
 - name: Earth Wave
-  url: https://earth-wave.online/
+  url: https://earthcore.life
   tag: Rails 8 · e-commerce
   description: A Rails 8 shop built to learn the stack properly — product options with compound cart keys, per-option line items, and checkout that stays out of the way.
 
