@@ -1,0 +1,26 @@
+- name: Earth Wave
+  url: https://earth-wave.online/
+  tag: Rails 8 · e-commerce
+  description: A Rails 8 shop built to learn the stack properly — product options with compound cart keys, per-option line items, and checkout that stays out of the way.
+
+- name: Doohly (Workplace Media)
+  url: https://www.pixelpimp.com.au
+  tag: DOOH · RSS · API
+  description: Client work for Workplace Media — an RSS feed manager with a public API (PixelPimp), a proof of concept pulling the SBS news feed, and content packages that keep digital out-of-home screens fed and on schedule.
+
+- name: JAC Media
+  tag: DOOH · weather & news
+  description: Weather and news packages for JAC Media's DOOH network — modular builds keyed to screen formats, so the same pipeline plugs into different hardware and layouts.
+
+- name: TR Solutions
+  url: https://trsolutions.dev
+  tag: Astro · Cloudflare
+  description: The trading side of things — a small Astro landing page on Cloudflare Workers for sole trader work and consultancy referrals.
+
+- name: Surface Oracle
+  tag: Rails 8 · research
+  description: A Rails 8 exploration project — news discovery and feed pipelines used to bootstrap new work fast, and to keep my hand in the whole stack.
+
+- name: Model ops lab
+  tag: Local LLMs · RAG
+  description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — with a RAG layer in the loop. Slower than the cloud, a lot more interesting.

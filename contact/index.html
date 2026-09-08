@@ -1,10 +1,21 @@
 ---
-layout: contact
-title: Contact Form
+layout: default
+title: Contact
+description: Get in touch with Mark Richards (Gr8ful Dev)
 ---
 
-<div class="zf-backgroundBg">
-  <!-- Change or deletion of the name attributes in the input tag will lead to empty values on record submission-->
-  <div class="zf-templateWidth">
-
-</div>
+<section class="section">
+  <div class="container">
+    <h2>Contact</h2>
+    <p class="section-sub">Say hello — I'm easy to reach.</p>
+    <div class="contact-card">
+      <ul>
+        <li><strong>Email</strong><br><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+        <li><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="me">gr8fuldev</a></li>
+        <li><strong>GitHub</strong><br><a href="https://github.com/{{ site.author.github }}" rel="me">mrichardsJBOIT</a></li>
+        <li><strong>Business</strong><br><a href="{{ site.author.business }}" rel="me">TR Solutions</a> — sole trader work and consultancy</li>
+      </ul>
+      <p class="contact-note">Prefer the old form? It was disabled back in 2022 to stop the spam. Direct email is faster anyway.</p>
+    </div>
+  </div>
+</section>

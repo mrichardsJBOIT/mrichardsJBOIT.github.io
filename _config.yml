@@ -1,0 +1,48 @@
+# Gr8ful Dev — personal site config
+# Built with Jekyll, hosted on GitHub Pages.
+
+title: Gr8ful Dev
+tagline: Mark Richards — software engineer
+email: mark@gr8ful.dev
+description: >-
+  The personal site and blog of Mark Richards (Gr8ful Dev) — software engineer,
+  Rails and DOOH platform work, AI tooling experiments, and the occasional
+  thought on perseverance.
+url: "https://www.gr8ful.dev"
+baseurl: ""
+
+# Author
+author:
+  name: Mark Richards
+  handle: Gr8fulDev
+  github: mrichardsJBOIT
+  twitter: reallyGr8fulDev
+  linkedin: gr8fuldev
+  email: mark@gr8ful.dev
+  business: trsolutions.dev
+
+# Build settings
+permalink: /:year/:month/:day/:title.html
+excerpt_separator: "\n\n"
+
+# Social / verification
+social:
+  links:
+    - https://www.linkedin.com/in/gr8fuldev/
+    - https://github.com/mrichardsJBOIT
+    - https://twitter.com/reallyGr8fulDev
+
+# Plugins (GitHub Pages compatible)
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude toolchain + junk from the built site
+exclude:
+  - vendor
+  - .bundle
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .gitignore
+  - fonts

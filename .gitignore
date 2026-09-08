@@ -1,3 +1,6 @@
 _site/
 .jekyll-metadata
 .jekyll-cache
+.bundle/
+vendor/
+_site/

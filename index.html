@@ -1,93 +1,78 @@
 ---
 layout: default
+body_class: home
 ---
 
-<div>
-  <div class="full-hero hero-home">
-    <div class="hero-content">
-      <h1>Be patient and persevere</h1>
-      <ul class="social-list">
-       <li>
-        <a href="https://www.linkedin.com/in/gr8fuldev/" class="social-link">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://twitter.com/reallyGr8fulDev" class="social-link">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/mrichardsJBOIT" class="social-link">
-          <i class="fab fa-github"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="home-callout">
-  <h1 class="callout-title">The Gr8tful Dev Story</h1>
-  <div class="callout-copy">
-    <p>There's not much to tell, definitely some <em>technical sophistication</em>, 
-      which includes both "hard skills" like coding, command lines, and version control, and "soft
-      skills" like guessing keyboard shortcuts, Googling error messages, and
-      knowing when to just reboot...
-    </p>
-    <p>If your looking for a coder who likes to get the job done and isn't afraid to get in amoungst the nuts and bolts, then say hello.
-    </p>
-    <h3>Background</h3>
-    <p>The Gr8tful Dev appeared one evening when a domian provider had a sale and the .dev tld was available.  
-      So knowing that a presence was required and some fun could be had.  
-      The Gr8tful Dev was born. 
-    </p>
-  </div>
-</div>
-
-<div class="home-section">
-  <h4>Latest post</h4>
-  <div class="blog-posts">
-    <header class="post-header">
-      <h2>
-        <a href="{{ site.posts.first.url }}">
-          {{ site.posts.first.title }}
-        </a>
-      </h2>
-      <div class="post-byline">
-        <img src="{{ site.posts.first.gravatar }}">
-        <a href="{{ site.posts.first.authorTwitter }}" class="social-link">
-          <i class="fab fa-twitter"></i>
-        </a>
-        by: {{ site.posts.first.author }}
-        <span> - {{ site.posts.first.date | date: '%B %d, %Y' }}</span>
-      </div>
-    </header>
-    <div class="posts-image" style="background-image:url({{ site.posts.first.postHero }}"></div>
-    {{ site.posts.first.excerpt }}
-  </div>
-</div>
-
-<div class="home-section">
-  <h2>THE FOUNDER</h2>
-  <p>
-    The Gr8tful Dev was founded in 2020 by Mark Richards.  He's been working in the software development field for a long time and still likes to code.
-  </p>
-
-  <div class="bio-wrapper">
-    <div class="bio-box">
-      <img src="/images/me_himalayas.jpg">
-      <h3>Mark Richards</h3>
-      <a href="https://twitter.com/reallyGr8fulDev" class="social-link">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <div class="bio-copy">
-        <p>
-          Will try most things a few times.  Especially riding motorbikes and surfing.
-        </p>
-      </div>
+<section class="hero">
+  <div>
+    <h1>Be patient and <span class="accent">persevere</span>.</h1>
+    <p class="lede">I'm Mark Richards — a software engineer who likes getting in amongst the nuts and bolts. Rails and DOOH platform work, AI tooling experiments, and a stubborn habit of finishing things.</p>
+    <div class="social-row">
+      <a href="https://github.com/{{ site.author.github }}" aria-label="GitHub" rel="me"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" aria-label="LinkedIn" rel="me"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://twitter.com/{{ site.author.twitter }}" aria-label="Twitter / X" rel="me"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="mailto:{{ site.author.email }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
     </div>
   </div>
-</div>
-</div>
+  <div class="hero-visual" aria-hidden="true">
+    <span class="visual-caption">— thoughts from the coast</span>
+  </div>
+</section>
 
+<section class="section">
+  <div class="container">
+    <h2>The Gr8tful Dev story</h2>
+    <p class="section-sub">A little background on how this corner of the internet came to be.</p>
+    <p>
+      There's not much to tell, definitely some <em>technical sophistication</em> — which includes both
+      "hard skills" like coding, command lines, and version control, and "soft skills" like guessing keyboard
+      shortcuts, Googling error messages, and knowing when to just reboot. I'm a programmer by trade — committed,
+      persistent, and optimistic — and I'd rather ship something that works than polish a pitch deck.
+    </p>
+    <p>
+      If you're looking for a coder who likes to get the job done and isn't afraid to get in amongst the
+      nuts and bolts, <a href="/contact">say hello</a>.
+    </p>
+    <p>
+      The Gr8tful Dev appeared one evening when a domain provider had a sale and the <code>.dev</code> TLD was
+      available. So knowing that a presence was required and some fun could be had, the Gr8tful Dev was born.
+      The trading side of things lives over at <a href="{{ site.author.business }}" rel="me">TR Solutions</a> —
+      and the blog below is where I write about the nuts and bolts, the dead ends, and the wins.
+    </p>
+  </div>
+</section>
 
+<section class="section section-alt">
+  <div class="container">
+    <h2>Projects</h2>
+    <p class="section-sub">Companies get a mention, but it's really about the technologies and how the solutions worked.</p>
+    <div class="card-grid">
+      {% for project in site.data.projects limit:6 %}
+      <article class="card">
+        <div class="card-body">
+          <h3>{% if project.url %}<a href="{{ project.url }}">{{ project.name }}</a>{% else %}{{ project.name }}{% endif %}</h3>
+          <p>{{ project.description }}</p>
+          <span class="card-meta">{{ project.tag }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Latest from the blog</h2>
+    <p class="section-sub">Occasional writing, when the mood and the time align.</p>
+    <ul class="post-list">
+      {% for post in site.posts limit:3 %}
+      <li class="post-item">
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+        <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="back-home"><a href="/blog">All posts →</a></p>
+  </div>
+</section>
