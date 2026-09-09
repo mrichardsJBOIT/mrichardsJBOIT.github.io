@@ -6,7 +6,18 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
 
 <div class="lab">
 
-<p class="lab-note"><strong>Snapshot</strong> of the programme as of 8 September 2026, 18:25 AEST. The programme has continued since — the live record lives in the <code>model-ops</code> repo (<code>mrichardsJBOIT/model-ops</code>).</p>
+<p class="lab-note"><strong>Snapshot</strong> of the programme as of 8 September 2026, 18:25 AEST, <strong>reconciled against the programme record on 9 September</strong>. The live record lives in the <code>model-ops</code> repo (<code>mrichardsJBOIT/model-ops</code>, private).</p>
+
+<div class="lab-update">
+  <strong style="color:var(--color-clay)">Update — 9 September.</strong> The open question this page ended on (“why the survey doesn't finish”) was answered that evening and confirmed overnight:
+  <ul>
+    <li><strong>The blank plans were never blank.</strong> Every killed survey already held the full, correct plan in its transcript — phase A doesn't fail to converge, it fails to <em>stop</em>. A 40-call cap plus forced emission turned 6-of-8 blanks into <strong>3 of 4 graded passes</strong> (the <code>fe</code> queue, including the cutover run <code>FE1</code>).</li>
+    <li><strong>The sheet mechanism is confirmed, not just observed.</strong> Placebo control (same-size sheet, decisive facts removed): 0 of 2. Generality: <code>sup-log-to-terminal</code> — 0 of 4 locally, 0 of 3 for cloud frontier upstream — passed <strong>2 of 2</strong> with one verified paragraph on the broadcast logger.</li>
+    <li><strong>Overnight step 4</strong> — ten tasks upstream ≥ 88%: <strong>2 of 10 passed</strong> (<code>ac-throttle-search</code>, <code>sup-legacy-conversions</code> again with the oracle diff), <strong>zero blank plans in ten</strong>, and six of the eight misses were each <em>one verified fact away</em>.</li>
+    <li><strong>Now running:</strong> knowledge keyed by Rails topic, not task — a blind topic-indexed sheet (<code>knowledge/rails8_topics.md</code>, 8 sections, every entry verified with <code>bin/rails runner</code>), the survey names the topics, the harness injects those sections. Eight held-out tasks run overnight 9–10 Sep, with a cloud calibration lane (deepseek-v4-flash, capped at US$10) in parallel.</li>
+  </ul>
+  Details: <code>docs/SCOREBOARD.md</code> §2i, §2j, §2k.</p>
+</div>
 
 <nav class="lab-toc" aria-label="On this page">
   <a href="#overview">Overview</a> · <a href="#architecture">Architecture</a> · <a href="#findings">Findings</a> · <a href="#evidence">Before &amp; After</a> · <a href="#timeline">Timeline</a> · <a href="#roadmap">Roadmap</a> · <a href="#failures">Failures</a> · <a href="#factory">Factory</a>
@@ -30,7 +41,8 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
       <div class="row"><div class="lbl"><code>ac-throttle-search</code> <small>pi + stopping rule</small></div><div class="cells" role="img" aria-label="3 of 3 passed"><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span></div></div>
       <div class="row"><div class="lbl"><code>sup-legacy-conversions</code> <small>stopping rule + prompt additions</small></div><div class="cells" role="img" aria-label="0 of 4 passed"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div></div>
       <div class="row"><div class="lbl"><code>sup-legacy-conversions</code> <small>two-phase + knowledge sheet, per attempt</small></div><div class="cells" role="img" aria-label="2 passes, 1 fail, 5 blank plans from 8 attempts"><span class="cell pass"></span><span class="cell pass"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
-      <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>all arms</small></div><div class="cells" role="img" aria-label="0 of 2 passed, 2 blank"><span class="cell"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
+      <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>stopping rule arms</small></div><div class="cells" role="img" aria-label="0 of 2 passed, 2 blank; later 2 of 2 with the logging sheet"><span class="cell"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
+      <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>+ verified logging sheet, Sep 9</small></div><div class="cells" role="img" aria-label="2 of 2 passed"><span class="cell pass"></span><span class="cell pass"></span></div></div>
       <div class="legend"><span><i style="background:var(--pass)"></i>pass</span><span><i style="background:var(--fail)"></i>fail</span><span><i style="background:var(--invalid)"></i>blank plan / invalid</span></div>
       <p class="src">Per-attempt accounting. Sources: <code>docs/SCOREBOARD.md</code> §1–2h, <code>RESULTS_TABLE.md</code>.</p>
     </aside>
@@ -48,8 +60,8 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
       <div>
         <p>The Model-Ops Evaluation Programme set out to test one thesis: local models can do accurate, timely Rails work if a RAG layer injects the right docs at dispatch. It measured that against the 21-task <code>rails/ai-evals</code> corpus (Writebook on Rails 8.2.0.alpha), first through the upstream <code>lemans</code>/miniswen harness, then through <code>pi</code> with a hand-built grader. The host was a 14-inch MacBook Pro M1 Max with 64 GB, serving <code>Qwen3.8-27B-4bit</code> via oMLX; a second M1 Max was commissioned mid-programme.</p>
         <p>The thesis did not survive contact. Real retrieval reached ~56% recall against the oracle's 100%, and a matched pair on Opus showed RAG making no difference at all. What produced the first local pass was a four-line stopping rule; what produced the second was a two-phase survey-then-execute pipeline handed a 1.6 KB sheet of empirically verified Rails upgrade notes.</p>
-        <p>What did not move: multi-locus tasks without that sheet, and a survey phase that produces a usable work order once in ten attempts.</p>
-        <div class="callout"><p>Prompt structure beat model choice. Harness beat retrieval. A small verified sheet beat general RAG. And the survey phase is now the bottleneck, not the model.</p></div>
+        <p>What did not move: multi-locus tasks without that sheet. And the survey phase's 8-blank-plans-in-10 stretch turned out to be a missing stopping rule, not a missing plan — capped and asked to emit, the same surveys produced first-attempt passes that evening.</p>
+        <div class="callout"><p>Prompt structure beat model choice. Harness beat retrieval. A small verified sheet beat general RAG. And the survey phase was never failing to think — it was failing to stop. Forced emission fixed it in an afternoon.</p></div>
       </div>
       <div class="metrics" role="list" aria-label="Key metrics">
         <div class="metric" role="listitem"><b>21</b><span>tasks in <code>rails/ai-evals</code>, against 1,170 published upstream trials</span></div>
@@ -57,7 +69,7 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
         <div class="metric" role="listitem"><b>3 / 3</b><span><code>ac-throttle-search</code> passes with the stopping rule, a different implementation each time</span></div>
         <div class="metric" role="listitem"><b>0 / 6</b><span>multi-locus passes with the stopping rule alone, across two tasks</span></div>
         <div class="metric" role="listitem"><b>1.6 KB</b><span>verified upgrade notes into Phase A: first <code>sup-legacy-conversions</code> pass, diff byte-identical to the oracle</span></div>
-        <div class="metric" role="listitem"><b>8 / 10</b><span>Phase A attempts on Sep 8 that produced no work order at all</span></div>
+        <div class="metric" role="listitem"><b>8 / 10</b><span>Phase A attempts on Sep 8 that produced no work order — fixed that evening by a call cap + forced emission (3 of 4 graded passes)</span></div>
       </div>
     </div>
     <div class="callout" style="margin-top:24px">
@@ -107,7 +119,7 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
         <polygon points="310,199 315,205 320,199" fill="var(--muted)"/>
         <polygon points="555,199 560,205 565,199" fill="var(--muted)"/>
       </svg>
-      <figcaption>The design is A + B + C + guard. What actually produced the passes is narrower: task → knowledge sheet → A → B → grading. Phase C1 has been exercised once and wrote no script; the loop guard has fired once in a real run (<code>KBrep2__a2</code>, 20.0% duplication). Two of the four designed components remain unproven.</figcaption>
+      <figcaption>The design is A + B + C + guard. What actually produced the passes is narrower: task → knowledge sheet → A → B → grading. Phase C1 has been exercised once and wrote no script; the loop guard has fired in real runs (<code>KBrep2__a2</code> at 20.0%, <code>FE2</code>'s diffuse trip, <code>FE4</code>'s tight trip) — and since 8 Sep evening a trip ends in a forced plan rather than a blank. C1 remains the one designed component still unproven.</figcaption>
     </figure>
 
     <div class="wo">
@@ -287,6 +299,7 @@ RISKS: report_card.rb:28 `format ? value.to_s(format) :
           <dt>Phase A blanks that looped</dt><dd>1 of 8</dd>
           <dt>Plans arrived by</dt><dd>10.8, 12.9, 19.7 min</dd>
           <dt>Blanks ran to</dt><dd>24.1, 37.9, 42.5, 44.9 min</dd>
+          <dt>After forced emission</dt><dd>3 of 4 graded passes (<code>fe</code>); 0 blanks in 10 (step 4)</dd>
         </dl></div>
       </article>
 
@@ -373,9 +386,9 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
     <article class="ex">
       <div class="ex-head">
         <h3><code>ac-throttle-search</code> — pass by hand-rolling</h3>
-        <div class="meta">local Qwen 27B 4-bit · 3 of 3 with the stopping rule · Rails API recall: 0 of 3</div>
+        <div class="meta">local Qwen 27B 4-bit · 3 of 3 with the stopping rule · Rails API recall: 0 of 3 · the verifier rewards behaviour</div>
       </div>
-      <p>The task turns on Rails 8's built-in <code>rate_limit</code>. No local run ever found it. Run <code>C</code> left this on disk:</p>
+      <p>The task turns on Rails 8's built-in <code>rate_limit</code>. No local run ever found it — and the run you're about to see didn't either. It passed anyway, which is the point. Run <code>C</code> left this on disk:</p>
       <ul class="filelist">
         <li><span>M</span><code>app/controllers/books/searches_controller.rb</code></li>
         <li><span>??</span><code>app/controllers/concerns/rate_limited.rb</code></li>
@@ -435,10 +448,25 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
         <h3>The knowledge sheet</h3>
         <p><code>Bprobe</code>: one variable against <code>Bphase4</code>, a 1.6 KB sheet of verified upgrade notes into Phase A. First local pass on <code>sup-legacy-conversions</code>, 6 runs, 21 assertions, 0 failures, diff byte-identical to the oracle. 0-for-6 becomes 1-for-7.</p>
       </li>
+      <li class="milestone">
+        <time datetime="2026-09-08T20:10">8 September, evening</time>
+        <h3>Forced emission — the blank plans were never blank</h3>
+        <p>The replication queue's failures (8 blanks in 10) got the forensic they needed: every killed survey, resumed with no tools and asked for its plan, produced it in minutes — the three <code>sup-legacy</code> ones with the oracle's exact remedy. Phase A wasn't failing to converge; it was failing to stop. The harness gained a 40-call cap and a forced plan; the <code>fe</code> queue passed 3 of 4 graded runs the same night, including the cutover run <code>FE1</code> from the new repo.</p>
+      </li>
       <li>
         <time datetime="2026-09-08T18:25">8 September, 18:25</time>
         <h3>Boundary confirmed from the other side</h3>
-        <p>Replication queue: 10 attempts, 2 graded, 1 pass, 8 blank plans. Only one blank was a loop. Phase A does not loop; it fails to converge. The component the pipeline depends on first is the one that fails most. The programme closes with a second local pass, a corrected diagnosis, and its next question written down.</p>
+        <p>Replication queue: 10 attempts, 2 graded, 1 pass, 8 blank plans. Only one blank was a loop. The revised diagnosis — phase A fails to stop, not to think — was written down that evening and confirmed by experiment hours later. The programme's next question was answered before it was asked.</p>
+      </li>
+      <li class="milestone">
+        <time datetime="2026-09-09">8–9 September, overnight</time>
+        <h3>The sheet holds — placebo, generality, and a 10-task sweep</h3>
+        <p>Placebo control: same-size sheet without the decisive facts, 0 of 2 — the mechanism is the specific facts. Generality: <code>sup-log-to-terminal</code>, 0 of 4 locally and 0 of 3 for cloud models, passes 2 of 2 with one verified paragraph. Step 4: ten tasks, 2 of 10 passed, zero blank plans, six of eight misses each one verified fact away.</p>
+      </li>
+      <li>
+        <time datetime="2026-09-09T12:00">9 September, morning</time>
+        <h3>Topic-keyed knowledge, and the hosts at full capacity</h3>
+        <p>The sheet is now keyed by Rails topic, not task — eight sections, every entry verified with <code>bin/rails runner</code>, and the survey names the topics it needs. MBP-16's hidden blocker (the ANE prefill setting) was found and disabled, making it the faster host; eight held-out tasks and a cloud calibration lane (deepseek-v4-flash, capped at US$10) run overnight 9–10 Sep.</p>
       </li>
     </ol>
   </div>
@@ -462,25 +490,26 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
         <span class="tag">G4 · PASS 8 Sep · G5 · failed</span>
         <h3>Targeted knowledge, then replication</h3>
         <p>G4: a small curated verified delta sheet closes the knowledge gap. Cheap, static, derivable from release notes for upgrade-shaped work.</p>
-        <p>G5 asked whether it replicates, whether Phase C1 works, whether it generalises. Answers: not yet (2 passes from 8 attempts), still unproven, untested. The control arm never ran on a healthy host.</p>
+        <p>G5's replication queue failed 8-of-10 on blanks — but the blanks turned out to be plans waiting to be asked for. The mechanism itself held up under placebo (0 of 2 without the decisive facts) and generalised (2 of 2 on <code>sup-log-to-terminal</code>, a task five frontier models score 0 on).</p>
       </div>
       <div class="gate now">
-        <span class="tag">Next · why the survey doesn't finish</span>
-        <h3>Three leads, cheapest first</h3>
+        <span class="tag">Answer — forced emission · the open question is closed</span>
+        <h3>Why the survey doesn't finish: it never knows it's done</h3>
         <ul>
-          <li><b>Incremental emission is not happening.</b> Every blank plan had zero assistant text. Fixing this converts timeouts into partial plans — the highest-value change available.</li>
-          <li><b>Task shape may decide it.</b> <code>ar-tenant-isolation</code> has no Rails keyword to grep; the survey answered by reading 104 files. Anchor-less tasks may need a different survey strategy.</li>
-          <li><b>Budget is not the lever.</b> More time has failed at 25 and 45 minutes. A 10-minute cap would have killed all three plans ever produced.</li>
+          <li><b>Forced emission (8 Sep evening).</b> Every killed survey, resumed with no tools and asked for its plan, produced it in minutes — the three <code>sup-legacy</code> ones with the oracle's exact remedy. Phase A was failing to stop, not to converge.</li>
+          <li><b>Harness fix.</b> Survey capped at 40 calls; any survey that ends without a plan is asked for one <em>with the tools removed</em>. Result: 3 of 4 graded passes on the same arm that was 2-of-8 the day before, and 0 blank plans in ten runs overnight.</li>
+          <li><b>Sep 9.</b> The sheet is keyed by Rails topic, not task; eight held-out tasks and a cloud calibration lane run overnight 9–10 Sep. Results land in the scoreboard §2k.</li>
         </ul>
       </div>
     </div>
     <div class="deferred">
       <h3>Deferred, and still open</h3>
       <ul>
+        <li><b>Generality across the suite</b> — the eight held-out tasks through topic-selected sheet sections ran overnight 9–10 Sep; the result is the next number on the board (scoreboard §2k).</li>
         <li><b>Greenfield A/B/C</b> — local Qwen vs cloud Flash vs cloud SOTA with pair prompting, when a real set of customer requirements exists. Kickoff drafted, not run.</li>
         <li><b>Quantisation ladder</b> — IQuest 40B 4-bit vs 8-bit, sequentially on one box. Staged, not run.</li>
         <li><b>Fine-tuning a Rails-specialist model</b> — only once enough platforms have shipped to make a concrete cost, latency, or privacy case. Two-of-eight is a reason to fix the loop, not to train a model.</li>
-        <li><b>Phase C1</b> has run for real once and wrote no script. <b>The loop guard</b> has fired once in anger. Both remain unproven components of a design whose passes came from the other two.</li>
+        <li><b>Phase C1</b> has run for real once and wrote no script — the one designed component still unproven. <b>The sweet-spot experiment</b> (how much context is enough) is queued behind SPEC-1 Part C.</li>
       </ul>
     </div>
   </div>
@@ -512,7 +541,7 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
       <article class="fail">
         <h3>The blank plan epidemic</h3>
         <p class="what">Two surveys timed out with 0 bytes at 25 and 45 minutes because <code>pi -p</code> prints only on completion. Two later blanks were retried silently before the stepper recorded them, so a run reported a clean PASS while concealing a 1-in-3 denominator; one transcript was overwritten and is unrecoverable. Then the replication queue: 8 blanks in 10 attempts, every one with zero assistant text.</p>
-        <p class="so"><b>What it taught:</b> a blank is a result and must be recorded as one. Session directories made timeouts recoverable, a stall detector caught the 33-minute silences, and the finding underneath — Phase A fails to converge rather than looping — is now the programme's open question.</p>
+        <p class="so"><b>What it taught:</b> a blank is a result and must be recorded as one — and the follow-through matters: session directories made timeouts recoverable, a stall detector caught the 33-minute silences, and the forced-emission experiment that evening proved the plans were in the transcripts all along. Phase A was failing to <em>stop</em>, not to <em>think</em>. The survey is no longer the open question.</p>
       </article>
       <article class="fail">
         <h3>The host-down silent failure</h3>
@@ -537,7 +566,7 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
       <div>
         <h3>The vision</h3>
         <p>One person ships and supports multiple platforms without a team. A hub-and-spoke orchestrator holds only routing, the credential vault, and escalation; everything else is delegated to sub-agents for spec, code, infra, marketing and support. Every action report carries exactly three fields — <code>status</code>, <code>data</code>, <code>next</code> — so the orchestrator reads state, not prose. The constraint the blueprint names is curation fatigue, not token cost.</p>
-        <p>The evaluation programme is the first hard measurement of the implementer seat. Its result is a routing rule with numbers behind it: well-specified single-locus work can go local today; multi-locus work goes local only with a curated knowledge sheet and a survey phase that finishes; everything else goes to the frontier.</p>
+        <p>The evaluation programme is the first hard measurement of the implementer seat. Its result is a routing rule with numbers behind it: well-specified single-locus work can go local today (<code>ac-throttle-search</code>, 3/3, plus the overnight wins); multi-locus work goes local only with a curated knowledge sheet and a survey phase that is <em>made</em> to finish by the harness; everything else goes to the frontier.</p>
         <h3 style="margin-top:22px">Why local models matter</h3>
         <p>Three reasons, in the order the prehistory ranks them. Cost: August's OpenRouter bill was $101.48 USD, and two M1 Max machines bought at $2,400 each were the "idle" concern that started the exo work. A local loop at 22 s/step costs electricity. Privacy: client repositories never leave the machine. Sovereignty: the loop keeps running when an upstream API changes terms or availability.</p>
         <p>The standing constraint of the eval sessions followed from this: everything stays local, both phases, no frontier model as architect or fallback. A pipeline that only works with a frontier planner tells the factory nothing new — Opus already passes most of the corpus unaided.</p>
@@ -550,7 +579,7 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
           <li><b>Tier 2</b><span>Local executors on Apple Silicon via oMLX. Qwen 3.8 27B 4-bit primary: logic, tests, ActiveRecord, bug fixes.</span></li>
           <li><b>Phase A</b><span>The same local model as senior: read-only survey, emits the work order.</span></li>
           <li><b>Phase B</b><span>The same local model as junior: "the search is finished," apply the work order, leave a change on disk.</span></li>
-          <li><b>Agents</b><span>Duncan Claw authored the reconciliation and the blueprint; the Sandi agent drove the Sep 6–8 evaluation runs.</span></li>
+          <li><b>Agents</b><span>Duncan Claw authored the reconciliation and the blueprint; the Sandi agent drove the Sep 6–8 evaluation runs; the programme record now lives in the <code>mrichardsJBOIT/model-ops</code> repo.</span></li>
         </ul>
         <figure class="figure" style="margin-top:22px">
 <pre aria-label="Routing rule, text diagram">intent ──▶ Tier 1: spec, bounded slice, acceptance criteria

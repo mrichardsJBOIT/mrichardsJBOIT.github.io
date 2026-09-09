@@ -679,6 +679,19 @@ code, pre {
   font-size: 0.95rem;
   color: var(--lab-ink-soft);
 }
+.lab-update {
+  max-width: var(--maxw);
+  margin: 0 auto 1.5rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-rule);
+  border-left: 3px solid var(--color-teal);
+  border-radius: 10px;
+  font-size: 0.96rem;
+}
+.lab-update ul { margin: 0.5rem 0 0.25rem; padding-left: 1.2rem; }
+.lab-update li { margin-bottom: 0.4rem; }
+.lab-update code { font-size: 0.9em; }
 .lab-toc {
   max-width: var(--maxw);
   margin: 0 auto 0.5rem;
