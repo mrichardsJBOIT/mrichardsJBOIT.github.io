@@ -22,5 +22,6 @@
   description: A Rails 8 exploration project — news discovery and feed pipelines used to bootstrap new work fast, and to keep my hand in the whole stack.
 
 - name: Model ops lab
+  url: /projects/model-ops-lab/
   tag: Local LLMs · RAG
   description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — with a RAG layer in the loop. Slower than the cloud, a lot more interesting.

@@ -1,0 +1,571 @@
+---
+layout: default
+title: Model Ops Lab
+description: "What a 4-bit local model can and cannot do as a Rails 8 coding agent: four lines of prompt, one boundary, and a 1.6 KB knowledge sheet."
+---
+
+<div class="lab">
+
+<p class="lab-note"><strong>Snapshot</strong> of the programme as of 8 September 2026, 18:25 AEST. The programme has continued since — the live record lives in the <code>model-ops</code> repo (<code>mrichardsJBOIT/model-ops</code>).</p>
+
+<nav class="lab-toc" aria-label="On this page">
+  <a href="#overview">Overview</a> · <a href="#architecture">Architecture</a> · <a href="#findings">Findings</a> · <a href="#evidence">Before &amp; After</a> · <a href="#timeline">Timeline</a> · <a href="#roadmap">Roadmap</a> · <a href="#failures">Failures</a> · <a href="#factory">Factory</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="dates">Apple Silicon · 25 August – 8 September 2026</div>
+      <h1>A 4-bit model on a laptop passed a real Rails task three times. Four lines of prompt did it. The next task showed exactly where it stops.</h1>
+      <p class="lede">Fifteen days of measuring local coding agents against the 21-task <code>rails/ai-evals</code> corpus. The retrieval layer the programme was built to test turned out not to be the constraint. A stopping rule was. Then a boundary. Then a 1.6 KB sheet of verified upgrade notes.</p>
+      <div class="cta">
+        <a class="btn primary" href="#findings">Read the findings</a>
+        <a class="btn" href="#architecture">See the work order</a>
+      </div>
+    </div>
+    <aside class="board" aria-labelledby="board-h">
+      <h3 id="board-h">Local Qwen 27B 4-bit, graded runs by task and arm</h3>
+      <div class="row"><div class="lbl">miniswen, any arm <small>before the stopping rule, Sep 6–7</small></div><div class="cells" role="img" aria-label="0 of 8 passed"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div></div>
+      <div class="row"><div class="lbl"><code>ac-throttle-search</code> <small>pi + stopping rule</small></div><div class="cells" role="img" aria-label="3 of 3 passed"><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span></div></div>
+      <div class="row"><div class="lbl"><code>sup-legacy-conversions</code> <small>stopping rule + prompt additions</small></div><div class="cells" role="img" aria-label="0 of 4 passed"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div></div>
+      <div class="row"><div class="lbl"><code>sup-legacy-conversions</code> <small>two-phase + knowledge sheet, per attempt</small></div><div class="cells" role="img" aria-label="2 passes, 1 fail, 5 blank plans from 8 attempts"><span class="cell pass"></span><span class="cell pass"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
+      <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>all arms</small></div><div class="cells" role="img" aria-label="0 of 2 passed, 2 blank"><span class="cell"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
+      <div class="legend"><span><i style="background:var(--pass)"></i>pass</span><span><i style="background:var(--fail)"></i>fail</span><span><i style="background:var(--invalid)"></i>blank plan / invalid</span></div>
+      <p class="src">Per-attempt accounting. Sources: <code>docs/SCOREBOARD.md</code> §1–2h, <code>RESULTS_TABLE.md</code>.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ OVERVIEW ============ -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What the programme was</h2>
+      <p class="kicker">One person, two MacBook Pros, a fixed corpus, and an agent that ran the experiments overnight.</p>
+    </div>
+    <div class="two">
+      <div>
+        <p>The Model-Ops Evaluation Programme set out to test one thesis: local models can do accurate, timely Rails work if a RAG layer injects the right docs at dispatch. It measured that against the 21-task <code>rails/ai-evals</code> corpus (Writebook on Rails 8.2.0.alpha), first through the upstream <code>lemans</code>/miniswen harness, then through <code>pi</code> with a hand-built grader. The host was a 14-inch MacBook Pro M1 Max with 64 GB, serving <code>Qwen3.8-27B-4bit</code> via oMLX; a second M1 Max was commissioned mid-programme.</p>
+        <p>The thesis did not survive contact. Real retrieval reached ~56% recall against the oracle's 100%, and a matched pair on Opus showed RAG making no difference at all. What produced the first local pass was a four-line stopping rule; what produced the second was a two-phase survey-then-execute pipeline handed a 1.6 KB sheet of empirically verified Rails upgrade notes.</p>
+        <p>What did not move: multi-locus tasks without that sheet, and a survey phase that produces a usable work order once in ten attempts.</p>
+        <div class="callout"><p>Prompt structure beat model choice. Harness beat retrieval. A small verified sheet beat general RAG. And the survey phase is now the bottleneck, not the model.</p></div>
+      </div>
+      <div class="metrics" role="list" aria-label="Key metrics">
+        <div class="metric" role="listitem"><b>21</b><span>tasks in <code>rails/ai-evals</code>, against 1,170 published upstream trials</span></div>
+        <div class="metric" role="listitem"><b>22.0 s</b><span>per step, local 4-bit via <code>openai/</code> adapter, vs 37.7 s cloud</span></div>
+        <div class="metric" role="listitem"><b>3 / 3</b><span><code>ac-throttle-search</code> passes with the stopping rule, a different implementation each time</span></div>
+        <div class="metric" role="listitem"><b>0 / 6</b><span>multi-locus passes with the stopping rule alone, across two tasks</span></div>
+        <div class="metric" role="listitem"><b>1.6 KB</b><span>verified upgrade notes into Phase A: first <code>sup-legacy-conversions</code> pass, diff byte-identical to the oracle</span></div>
+        <div class="metric" role="listitem"><b>8 / 10</b><span>Phase A attempts on Sep 8 that produced no work order at all</span></div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:24px">
+      <p><strong>Read the denominator carefully.</strong> Per <em>graded</em> run, the pipeline looks good — when Phase A produces a work order, the rest works and the answer is exactly right. Per <em>attempt</em>, Phase A fails to produce a work order more often than it succeeds: <code>KBrep1</code> needed 3 attempts for its 1 pass; two produced no plan and cost ~45 minutes each. Until 2026-09-08 the retry logic recorded only the successful attempt, so the flattering rate was the only one visible. Every attempt is now written to the results table. For comparison against the published leaderboard, per-attempt is the honest figure — upstream runs do not get retries.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="architecture">
+  <div class="wrap arch">
+    <div class="sec-head">
+      <h2>Architecture and design</h2>
+      <p class="kicker">A senior→junior split with the same local model in both seats, a harness-level loop guard, and a retrieval layer that ended up replaced by a curated sheet. Source: <code>docs/PHASED_RUN_DESIGN.md</code>, <code>docs/AGENT_EXECUTOR_PAIR_PROMPT_MODEL.md</code>.</p>
+    </div>
+
+    <figure class="figure">
+      <svg viewBox="0 0 960 270" width="100%" role="img" aria-labelledby="pipe-t pipe-d">
+        <title id="pipe-t">Phased run pipeline</title>
+        <desc id="pipe-d">Task body plus knowledge sheet feed Phase A survey, which is read-only and emits a work order. Phase B execute receives the work order verbatim and applies it with full tools. Phase C verify runs the suite. A harness-level loop guard and stall detector watch phases A and B. Every attempt is recorded, including blank plans.</desc>
+        <rect class="box" x="20" y="90" width="150" height="80" rx="8"/>
+        <text x="34" y="118" font-size="12" class="mut">Input</text>
+        <text x="34" y="140" font-size="15">Task body</text>
+        <text x="34" y="158" font-size="11" class="mut">+ 1.6 KB knowledge sheet</text>
+        <rect class="box acc" x="215" y="90" width="200" height="80" rx="8"/>
+        <text x="231" y="118" font-size="12" class="mut">Phase A · senior</text>
+        <text x="231" y="140" font-size="15">Survey (read-only)</text>
+        <text x="231" y="158" font-size="11" class="mut">read, grep, find, ls · emits work order</text>
+        <rect class="box" x="460" y="90" width="200" height="80" rx="8"/>
+        <text x="476" y="118" font-size="12" class="mut">Phase B · junior</text>
+        <text x="476" y="140" font-size="15">Execute</text>
+        <text x="476" y="158" font-size="11" class="mut">full tools · "the search is finished"</text>
+        <rect class="box" x="705" y="90" width="235" height="80" rx="8"/>
+        <text x="721" y="118" font-size="12" class="mut">Phase C · verify</text>
+        <text x="721" y="140" font-size="15">bin/rails test → grade</text>
+        <text x="721" y="158" font-size="11" class="mut">C1 has run for real exactly once</text>
+        <path class="line" d="M170 130 H215"/><polygon points="209,125 215,130 209,135" fill="var(--muted)"/>
+        <path class="line" d="M415 130 H460"/><polygon points="454,125 460,130 454,135" fill="var(--muted)"/>
+        <path class="line" d="M660 130 H705"/><polygon points="699,125 705,130 699,135" fill="var(--muted)"/>
+        <path class="line acc" d="M315 90 V40 H560 V90" stroke-dasharray="5 4"/>
+        <polygon points="555,84 560,90 565,84" fill="var(--accent)"/>
+        <polygon points="310,84 315,90 320,84" fill="var(--accent)"/>
+        <text x="330" y="32" font-size="12" fill="var(--accent)">loop guard: duplicate tool call in last N → interrupt · stall detector: 480 s silence → terminate</text>
+        <rect class="box" x="215" y="205" width="445" height="42" rx="8"/>
+        <text x="231" y="231" font-size="13">Per-attempt record: calls, uniq, dup %, edits, SURVEY_EXIT, bytes, grade</text>
+        <path class="line" d="M315 170 V205"/><path class="line" d="M560 170 V205"/>
+        <polygon points="310,199 315,205 320,199" fill="var(--muted)"/>
+        <polygon points="555,199 560,205 565,199" fill="var(--muted)"/>
+      </svg>
+      <figcaption>The design is A + B + C + guard. What actually produced the passes is narrower: task → knowledge sheet → A → B → grading. Phase C1 has been exercised once and wrote no script; the loop guard has fired once in a real run (<code>KBrep2__a2</code>, 20.0% duplication). Two of the four designed components remain unproven.</figcaption>
+    </figure>
+
+    <div class="wo">
+      <div>
+        <h3>The work order Phase A is asked to write</h3>
+        <figure class="figure">
+<pre>You are in phase 1 of 2: SURVEY. You have read-only tools.
+You cannot edit anything, and you will not be asked to.
+
+Your only job is to produce the plan the next phase will execute.
+
+1. Find every site that must change. Do not stop at the one
+   described above — the same defect may appear in several
+   places, and may appear in more than one form.
+2. If a search returns nothing, accept that and move on.
+   Do not repeat a search you have already run.
+3. Write the plan incrementally. Emit each site as you
+   confirm it. A partial plan is useful; a plan you never
+   finish is not.
+
+Then output ONLY this, and nothing else:
+
+SITES: &lt;n&gt;
+- &lt;path&gt;:&lt;line&gt; — &lt;exact current code&gt; → &lt;exact replacement&gt;
+- ...
+RISKS: &lt;anything that looks similar but must NOT be changed,
+        or "none"&gt;</pre>
+          <figcaption>Point 1 is the definition of done. Point 2 is the dead-end rule. Point 3 was added on Sep 8 after two surveys timed out with zero bytes. <code>RISKS</code> exists because the task contains a trap: a ternary where only one branch may change.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <h3>The one that passed — <code>Bprobe</code>, 28 calls, 0% duplication</h3>
+        <figure class="figure">
+<pre>All six sites confirmed across the whole tree.
+
+Findings:
+- 5 sites use `to_s(:format)` — renamed, now `to_fs`.
+- 1 site uses the removed `to_default_s` in the nightly
+  archive job — that's last night's crash.
+- One near-miss: `report_card.rb:28` has a bare `value.to_s`
+  in the else branch — must stay.
+
+SITES: 6
+- app/controllers/books/reports_controller.rb:16 —
+  `updated_at.to_s(:number)` → `updated_at.to_fs(:number)`
+- app/helpers/books/reports_helper.rb:3 —
+  `time.to_date.to_s(:long)` → `time.to_date.to_fs(:long)`
+- app/views/report_digest_mailer/weekly.text.erb:6 —
+  `to_date.to_s(:short)` → `to_date.to_fs(:short)`
+- app/models/book/reportable.rb:5 —
+  `length.to_s(:delimited)` → `length.to_fs(:delimited)`
+- lib/publishing/report_card.rb:24 —
+  `to_a.to_s(:db)` → `to_a.to_fs(:db)`
+- app/jobs/report_archive_job.rb:12 —
+  `last_edited_at&amp;.to_default_s` → `last_edited_at&amp;.to_s`
+RISKS: report_card.rb:28 `format ? value.to_s(format) :
+  value.to_s` — else-branch no-arg `to_s` must NOT change.</pre>
+          <figcaption><b>Scope slightly wrong, remedy right.</b> It listed 6 of 7 sites and misfiled the ternary as do-not-touch; Phase B changed it correctly anyway. The same task without the sheet (<code>Bphase3</code>) got all 7 sites and prescribed <code>strftime</code> hand-rolls with 5 of 7 formats wrong. Scope right, remedy wrong. That diff is the whole story of Sep 8.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="arch-cols">
+      <div>
+        <h3>The loop guard, and what it can't see</h3>
+        <p>Prompts failed four times to stop a local model repeating itself — 38× <code>bin/rails runner 'puts Book.count'</code> in one run, one <code>grep</code> 47 times in another. So the guard is harness-level: it watches the session JSONL and interrupts on a duplicate tool call in the last N. Removing tools moved the metric where prompts hadn't: the read-only survey ran at 5% duplication where the bash-equipped arm ran at 42%.</p>
+        <p>Then the Sep 8 queue showed the guard's blind spot. Of eight blank plans, only one was a loop. Four had duplication at or below 3.1%, three at exactly 0.0%. Phase A doesn't loop; it reads honestly and never converges on a plan. A duplication guard cannot see that, which is why a 480-second stall detector was added the same afternoon, threshold set above the longest legitimate gap observed (349 s).</p>
+        <h3 style="margin-top:22px">The retrieval layer, and what replaced it</h3>
+        <p>Hybrid dense + lexical retrieval with RRF fusion and LLM query expansion over Rails 8.2.0.alpha at the pinned SHA, turbo-rails, and the app's own source. It reached ~56% recall at five, and on the one task where it changed an outcome it cost 52% more steps on a task the model already passed. What actually closed the last gap was a hand-curated sheet of Rails upgrade notes, every entry verified with <code>bin/rails runner</code>, handed to Phase A. Knowledge was the constraint; untargeted retrieval was the wrong delivery mechanism.</p>
+      </div>
+      <div>
+        <h3>Hardware and harness stack</h3>
+        <ul class="stack">
+          <li><span>Eval host</span><span>MBP-14, M1 Max, 64 GB. oMLX 0.6.4, ceiling 64.4 GB</span></li>
+          <li><span>Second host</span><span>MBP-16, M1 Max, 64 GB. oMLX 0.6.3rc1, ceiling 55.7 GB — not interchangeable for controlled comparisons</span></li>
+          <li><span>Model</span><span><code>mlx-community/Qwen3.8-27B-4bit</code>, ~15 GB resident, v22.4 chat template. Also run: Gemma 12B (agentic fine-tune, MLX 8-bit), IQuest 40B</span></li>
+          <li><span>Local harness</span><span><code>pi</code> v0.84.4 in <code>lemans-writebook-pi:v1</code>, graded by <code>factory_harness.sh</code></span></li>
+          <li><span>Upstream harness</span><span><code>lemans</code> / miniswen (bash-only), used for cloud controls via OpenRouter</span></li>
+          <li><span>Frontier control</span><span>Claude Opus 5 via Claude Code harness</span></li>
+          <li><span>Corpus</span><span><code>rails/ai-evals</code>, 21 api-knowledge tasks, Writebook on Rails 8.2.0.alpha at <code>3a4961048ad2</code></span></li>
+          <li><span>Prehistory</span><span>exo cluster over the same Macs, pre-oMLX; August OpenRouter spend $101.48 USD; see <code>docs/exo/</code></span></li>
+        </ul>
+        <p class="src" style="margin-top:14px">Two M1 Max machines at $2,400 each sitting idle was the prehistory's stated concern. The programme is the answer to "can they do anything useful once running."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINDINGS ============ -->
+<section id="findings">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Key findings</h2>
+      <p class="kicker">Six results, each with the number that supports it. Sources: <code>docs/SCOREBOARD.md</code>, <code>docs/RAG_EFFICACY_EXPERIMENT.md</code>, <code>docs/LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code>, <code>RESULTS_TABLE.md</code>.</p>
+    </div>
+    <div class="findings">
+
+      <article class="finding">
+        <div class="n">1</div>
+        <div>
+          <h3>Prompt beat model beat retrieval</h3>
+          <p>Experiment 1 gave the local model a full editing harness — <code>pi</code> with <code>read</code>/<code>edit</code>/<code>write</code> — and it never called an edit tool in an hour. 84 of 87 calls were <code>bash</code>; one <code>grep</code> ran 47 times. Experiment 1b changed nothing but the prompt: four lines telling it when to stop investigating. It passed in 21 minutes and stopped voluntarily — the first local run ever to judge itself finished. The "10 tool calls" in the rule never bound anything; both passes first edited at call 25. The working ingredient is the transition imperative.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Exp 1, no rule</dt><dd>87 calls, 0 edits, FAIL, killed at 60 m</dd>
+          <dt>Exp 1b, + rule</dt><dd>28 calls, 3 edits, PASS, 21.3 m, <code>PI_EXIT=0</code></dd>
+          <dt>Replication</dt><dd>3/3, three different implementations</dd>
+        </dl></div>
+      </article>
+
+      <article class="finding">
+        <div class="n">2</div>
+        <div>
+          <h3>Static scores did not predict agentic completion</h3>
+          <p>On Aug 25's single-turn rubric, IQuest 40B 8-bit scored 95/100 and local Qwen 88/100. In the agentic harness, Qwen became the primary executor for tool-schema adherence and IQuest hallucinated another vendor's tool names. Then the sharper version: the same Qwen family passes 76.2% of upstream trials from the cloud and passed 0 of 7 locally in miniswen. 100% of our failures never reached the verifier; only 12.5% of upstream failures fail that way. We were not failing at Rails. We were failing before Rails became relevant.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Static winner</dt><dd>IQuest 40B, 95/100</dd>
+          <dt>Agentic executor</dt><dd>Qwen 3.8 27B 4-bit</dd>
+          <dt>Cloud vs local, same family</dt><dd>76.2% vs 0/7 (miniswen era)</dd>
+          <dt>Never submitted</dt><dd>100% ours vs 12.5% upstream</dd>
+        </dl></div>
+      </article>
+
+      <article class="finding">
+        <div class="n">3</div>
+        <div>
+          <h3>Local inference is not slow. The adapter was.</h3>
+          <p>Same weights, same server, same task: 41–48 s/step via the <code>ollama/</code> provider path, 22.0 s/step via <code>openai/</code>. That is faster than the cloud model that passed (37.7 s via OpenRouter). It also exposed a fairness bug: the bench sets 100 steps and 60 minutes, cloud runs exhaust steps, and the slow local runs exhausted the clock at 70–88 steps. The 0-for-7 versus 76.2% comparison was never made under the same budget.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Local, <code>ollama/</code></dt><dd>41–48 s/step</dd>
+          <dt>Local, <code>openai/</code></dt><dd>22.0 s/step (104 requests, 2292 s)</dd>
+          <dt>Cloud, OpenRouter</dt><dd>37.7 s/step (40 steps, 1507 s)</dd>
+          <dt>Token shape</dt><dd>~1.70 M prompt : 14.4 K completion</dd>
+        </dl></div>
+      </article>
+
+      <article class="finding">
+        <div class="n">4</div>
+        <div>
+          <h3>RAG efficacy is narrow, and general RAG was the wrong delivery</h3>
+          <p>Real retrieval reached ~56% R@5. On cloud Qwen it converted <code>sup-legacy-conversions</code> from 0/3 upstream to 1/3 — and on the guardrail task it already passed, injection cost 52% more steps for the same outcome. The properly controlled pair on Opus was a clean null: plain and RAG arms produced byte-identical diffs and failed the same hidden test. Both saw the second bug and reasoned themselves out of fixing it — a judgement failure, not a knowledge gap. What worked was the opposite of general retrieval: 1.6 KB of curated, empirically verified notes into Phase A.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Retrieval recall</dt><dd>~56% R@5 vs oracle 100%</dd>
+          <dt><code>sup-legacy</code>, cloud Qwen</dt><dd>0/3 → 1/3 with RAG (61 steps, 44 m)</dd>
+          <dt>Guardrail cost</dt><dd>40 → 61 steps (+52%), same pass</dd>
+          <dt>Opus matched pair</dt><dd>both FAIL, identical diff</dd>
+          <dt>Knowledge sheet, local</dt><dd>PASS, diff = <code>solution.patch</code></dd>
+        </dl></div>
+      </article>
+
+      <article class="finding">
+        <div class="n">5</div>
+        <div>
+          <h3>The multi-locus boundary</h3>
+          <p>The stopping rule is 3-for-3 on <code>ac-throttle-search</code> (rated easy, one locus of change) and 0-for-6 on two tasks that need edits in several places. Opus passed the harder task with no docs in 27 calls. The local model, once phasing gave it correct scope, still failed on remedy: it never found <code>to_fs</code>, declared the removed API had no replacement, and hand-rolled formats that missed 5 of 7. Whether thin Rails 8 knowledge is fatal depends on the verifier: behavioural assertions forgive a hand-rolled fix, exact-output assertions do not.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Single-locus</dt><dd>3/3 local</dd>
+          <dt>Multi-locus, rule only</dt><dd>0/6 local</dd>
+          <dt>Opus, no docs</dt><dd>PASS, 27 calls, 6.6 m</dd>
+          <dt>Local remedy errors</dt><dd>5 of 7 formats wrong</dd>
+        </dl></div>
+      </article>
+
+      <article class="finding">
+        <div class="n">6</div>
+        <div>
+          <h3>Duplication as the discriminator — and its limit</h3>
+          <p>In the single-phase arms, every failure ran 20–82% duplicate tool calls and the pass ran 0%. It is cheap to compute, and it became the loop guard's trigger. But the Sep 8 queue qualified it: of eight blank Phase A plans, only one looped. The survey mostly fails by reading exhaustively and never emitting — 104 calls, 72 reads, 30 <code>ls</code>, 0% duplication. Timing separates outcomes better than duplication does: every plan ever produced arrived by 19.7 minutes; every blank ran past 24.</p>
+        </div>
+        <div class="evidence"><dl>
+          <dt>Single-phase fails</dt><dd>20–82% dup</dd>
+          <dt>Single-phase pass</dt><dd>0% dup</dd>
+          <dt>Phase A blanks that looped</dt><dd>1 of 8</dd>
+          <dt>Plans arrived by</dt><dd>10.8, 12.9, 19.7 min</dd>
+          <dt>Blanks ran to</dt><dd>24.1, 37.9, 42.5, 44.9 min</dd>
+        </dl></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE & AFTER ============ -->
+<section id="evidence">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Before and after</h2>
+      <p class="kicker">Where the three repos meet: a task from <code>rails/ai-evals</code>, seeded into <code>basecamp/writebook</code>, graded by the <code>rails/lemans</code> verifier. Three worked examples from the evidence directory. Sources: <code>docs/PROGRAMME_MAP.html</code> §3, <code>docs/SCOREBOARD.md</code> §2b/§2e/§2g, <code>benchmarks/…/&lt;run&gt;.diff</code>.</p>
+    </div>
+
+    <div class="nest" role="list" aria-label="How a run nests">
+      <div role="listitem"><b>Suite</b><small>22 ai-evals tasks against Writebook. 21 are <code>api-knowledge</code>; <code>hello-world</code> proves the pipeline. 4 touched, 18 untouched.</small></div>
+      <div role="listitem"><b>Task</b><small>Four files: <code>instruction.md</code> (frontmatter carries <code>rails_anchor</code>, stripped), <code>environment.patch</code> (seeded defect), <code>solution.patch</code> (oracle), <code>verification_test.rb</code> (hidden).</small></div>
+      <div role="listitem"><b>Arm</b><small>One run = task × one intervention. The only variable. Named <code>Bphase4</code>, <code>Bprobe</code>, <code>KBrep1__a3</code>…</small></div>
+      <div role="listitem" class="ours"><b>Pipeline</b><small>A ▸ B ▸ C, guard watching. The thing being built. Everything above and below this row is upstream's.</small></div>
+      <div role="listitem"><b>Grading</b><small>lemans' verifier, mirrored by <code>factory_harness.sh</code>: preverify app suite ▸ restore <code>test/ bin/ config/environments/test.rb</code> ▸ run hidden test. Exit status is the reward.</small></div>
+    </div>
+
+    <!-- Example 1 -->
+    <article class="ex">
+      <div class="ex-head">
+        <h3><code>sup-legacy-conversions</code> — same seven lines, three outcomes</h3>
+        <div class="meta">7 sites · 6 files · 1 trap · local Qwen 27B 4-bit both columns</div>
+      </div>
+      <p>The seeded defect is a Rails 7.0 rename left unapplied: <code>to_s(:format)</code> became <code>to_fs(:format)</code> and <code>to_default_s</code> was removed. The task describes it the way a bug report would — the nightly archive job crashed — and never names the API. Both runs below had a correct work order and made their edits in 13 calls at 0% duplication. One had been handed 1.6 KB of verified upgrade notes in Phase A. The other had not.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Writebook file</th><th>Seeded (before)</th><th><code>Bphase4</code>, no sheet</th><th class="after"><code>Bprobe</code>, with sheet = oracle</th></tr></thead>
+          <tbody>
+            <tr><td><code>books/reports_controller.rb:16</code></td><td><code>updated_at.to_s(:number)</code></td><td><span class="ok">✓</span> <code>strftime("%Y%m%d%H%M%S")</code></td><td class="after"><span class="ok">✓</span> <code>updated_at.to_fs(:number)</code></td></tr>
+            <tr><td><code>books/reports_helper.rb:3</code></td><td><code>to_date.to_s(:long)</code></td><td><span class="ok">✓</span> <code>strftime("%B %d, %Y")</code></td><td class="after"><span class="ok">✓</span> <code>to_date.to_fs(:long)</code></td></tr>
+            <tr><td><code>report_digest_mailer/weekly.text.erb:6</code></td><td><code>to_date.to_s(:short)</code></td><td><span class="bad">✗</span> <code>%b %d</code> — verifier wants <code>%d %b</code></td><td class="after"><span class="ok">✓</span> <code>to_date.to_fs(:short)</code></td></tr>
+            <tr><td><code>book/reportable.rb:5</code></td><td><code>length.to_s(:delimited)</code></td><td><span class="bad">✗</span> <code>number_with_delimiter</code> — a view helper, errors in a model</td><td class="after"><span class="ok">✓</span> <code>length.to_fs(:delimited)</code></td></tr>
+            <tr><td><code>publishing/report_card.rb:24</code></td><td><code>to_a.to_s(:db)</code></td><td><span class="bad">✗</span> <code>map(&amp;:title).join(", ")</code> — wants ids</td><td class="after"><span class="ok">✓</span> <code>to_a.to_fs(:db)</code></td></tr>
+            <tr><td><code>publishing/report_card.rb:28</code></td><td><code>format ? value.to_s(format) : value.to_s</code></td><td><span class="bad">✗</span> <code>strftime</code> without the time component</td><td class="after"><span class="ok">✓</span> <code>value.to_fs(format)</code>, else-branch untouched</td></tr>
+            <tr><td><code>report_archive_job.rb:12</code></td><td><code>last_edited_at&amp;.to_default_s</code></td><td><span class="bad">✗</span> <code>strftime("… %z")</code> — wants <code>%Z</code></td><td class="after"><span class="ok">✓</span> <code>last_edited_at&amp;.to_s</code></td></tr>
+            <tr><td><b>Hidden verifier</b></td><td>—</td><td>4 failures + 2 errors · <b>FAIL</b></td><td class="after">0 failures, 0 errors · <b>PASS</b> · diff byte-identical to <code>solution.patch</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pair">
+        <div>
+          <h4><code>Bprobe</code> diff, <code>app/jobs/report_archive_job.rb</code></h4>
+          <pre class="diff"><span class="ctx">   private
+     def header(book)</span>
+<span class="del">-      "# archived #{book.last_edited_at&amp;.to_default_s}"</span>
+<span class="ins">+      "# archived #{book.last_edited_at&amp;.to_s}"</span>
+<span class="ctx">     end
+ end</span></pre>
+        </div>
+        <div>
+          <h4>Verified runtime output, probe against real records, rolled back</h4>
+          <pre class="diff"><span class="ctx">report_stamp   : September 07, 2026
+filename       : shelf-report-20260907072256.txt
+report card    : Updated: 07 Sep 07:22
+                 Covers: 1,2,3
+archive header : # archived 2026-09-07 07:22:56 UTC
+digest line    : * Probe Book, last edited 07 Sep</span></pre>
+        </div>
+      </div>
+      <p style="margin-top:18px">Scope was never the problem in the left column: <code>Bphase4</code> found all seven sites. It believed <code>to_default_s</code> had no Rails 8.2 replacement and hand-rolled formats; five of seven missed the verifier's exact strings. The right column's survey found only six sites and misfiled the ternary as do-not-touch; Phase B changed it correctly anyway. One fact — renamed, not removed — is the entire difference.</p>
+    </article>
+
+    <!-- Example 2 -->
+    <article class="ex">
+      <div class="ex-head">
+        <h3><code>as-purge-embedded-images</code> — one line, and the line it didn't write</h3>
+        <div class="meta">Opus via Claude Code · matched pair · plain vs +11,704 chars of RAG · both FAIL</div>
+      </div>
+      <p>The controlled RAG test. Two fresh Opus runs, identical harness, only the instruction varied: one plain, one with the retriever's top chunks appended, <code>purge_later</code> at rank 0. Both arms produced the same one-line change in <code>app/models/page.rb</code>:</p>
+      <pre class="diff"><span class="del">-  dependent: :destroy</span>
+<span class="ins">+  dependent: :purge_later</span></pre>
+      <p style="margin-top:14px">Both failed the same hidden test — <em>a page revised after its image went in frees the revision's image too</em>. Both runs saw the second leak. Both wrote it up under uncertainties and declined to fix it:</p>
+      <div class="quote">"I judged this a pre-existing upstream design quirk rather than the injected bug… Flagging it in case the hidden tests exercise the edit-then-destroy path."</div>
+      <p>The contaminated run — the one that received <code>rails_anchor: purge_later</code> because the frontmatter had not been stripped — found both bugs and passed. Being handed part one appears to have freed it to look further. That is a scoping judgement, not a knowledge gap, and it is why eleven kilobytes of correct documentation changed nothing. The result is the cleanest null in the programme and the reason the RAG line was closed.</p>
+    </article>
+
+    <!-- Example 3 -->
+    <article class="ex">
+      <div class="ex-head">
+        <h3><code>ac-throttle-search</code> — pass by hand-rolling</h3>
+        <div class="meta">local Qwen 27B 4-bit · 3 of 3 with the stopping rule · Rails API recall: 0 of 3</div>
+      </div>
+      <p>The task turns on Rails 8's built-in <code>rate_limit</code>. No local run ever found it. Run <code>C</code> left this on disk:</p>
+      <ul class="filelist">
+        <li><span>M</span><code>app/controllers/books/searches_controller.rb</code></li>
+        <li><span>??</span><code>app/controllers/concerns/rate_limited.rb</code></li>
+        <li><span>??</span><code>lib/rate_limiter.rb</code></li>
+      </ul>
+      <p style="margin-top:18px">A concern and a library class where the oracle adds one macro to the controller. The behavioural verifier accepted it, as lemans' methodology says it should: the checks test behaviour, not implementation, and API recall is scored separately from passing. It is the mirror image of example 1 — there, a behavioural verifier would have forgiven the <code>strftime</code> hand-rolls too; an exact-output verifier did not. Whether thin Rails 8 knowledge is fatal depends on what the test asserts.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Timeline of breakthroughs</h2>
+      <p class="kicker">From static rubrics to a measured boundary. Sources: <code>docs/LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code>, <code>docs/JOURNEY.md</code>, <code>docs/plans/2026-09-08_PLAN.md</code>.</p>
+    </div>
+    <ol class="tl">
+      <li>
+        <time datetime="2026-08-25">25 August</time>
+        <h3>Static benchmarks</h3>
+        <p>Single-turn prompts scored 0–100 on Rails 8 omakase, inverted maths, locking. IQuest 40B 8-bit wins at 95/100. Bottleneck named as architectural knowledge.</p>
+      </li>
+      <li class="milestone">
+        <time datetime="2026-08-28">27–28 August</time>
+        <h3>The paradigm shift</h3>
+        <p>Evaluation moves to live multi-turn tool execution. Static scores stop predicting anything; Qwen 3.8 27B 4-bit becomes the primary local executor on tool-schema adherence and clean exits. The <code>pi</code> coding agent is adopted as the harness. Bottleneck renamed: tool dialect and loop termination.</p>
+      </li>
+      <li>
+        <time datetime="2026-09-07">6–7 September, overnight</time>
+        <h3>The retrieval layer, and the A/B that measured nothing</h3>
+        <p>Hybrid retriever built and measured at ~56% R@5. Six agentic trials, zero solved, every one killed by the wall clock. One run received the correct answer at step 17 and re-ran the identical probe 61 more times.</p>
+      </li>
+      <li>
+        <time datetime="2026-09-07">7 September, morning</time>
+        <h3>The cloud control, and the throughput finding</h3>
+        <p>Cloud Qwen passes <code>ac-throttle-search</code> in 40 steps through our exact harness: infrastructure sound, fault isolated to the local stack. Local via <code>openai/</code> measured at 22.0 s/step, faster than the cloud. RAG converts <code>sup-legacy</code> 0/3 → 1/3 on cloud Qwen; the Opus matched pair is a clean null.</p>
+      </li>
+      <li class="milestone">
+        <time datetime="2026-09-07T20:50">7 September, 20:50</time>
+        <h3>First local pass</h3>
+        <p>Experiment 1b. Same harness as the hour-long failure, plus four lines of stopping rule. 28 calls, three edits, 21 minutes, voluntary stop. It never found Rails 8's <code>rate_limit</code> and hand-rolled a rate limiter instead; the verifier checks behaviour, so it passed.</p>
+      </li>
+      <li>
+        <time datetime="2026-09-08T06:50">7–8 September, overnight</time>
+        <h3>The boundary</h3>
+        <p>Seven runs while Mark slept. <code>ac-throttle-search</code> passes a third time with a different implementation. Everything multi-locus fails: 0-for-6. A definition of done makes it worse. The two-phase arm times out at 25 minutes with 0 bytes — recorded INVALID, not FAIL.</p>
+      </li>
+      <li class="milestone">
+        <time datetime="2026-09-08">8 September, morning</time>
+        <h3>Phase A works. Phase B still loops. Then it doesn't.</h3>
+        <p><code>Bphase3</code>: give the survey a session directory and ask for incremental emission, and it finishes in the budget that twice produced nothing — all 7 sites, 0% duplication. Execute then loops on a correct plan, hunting a timestamp format that is not in the repo. <code>Bphase4</code>, byte-identical plan, guard on: 13 calls, 6 files edited, guard never fired. Phase B's variance is too large for single-run comparisons.</p>
+      </li>
+      <li class="milestone">
+        <time datetime="2026-09-08">8 September, midday</time>
+        <h3>The knowledge sheet</h3>
+        <p><code>Bprobe</code>: one variable against <code>Bphase4</code>, a 1.6 KB sheet of verified upgrade notes into Phase A. First local pass on <code>sup-legacy-conversions</code>, 6 runs, 21 assertions, 0 failures, diff byte-identical to the oracle. 0-for-6 becomes 1-for-7.</p>
+      </li>
+      <li>
+        <time datetime="2026-09-08T18:25">8 September, 18:25</time>
+        <h3>Boundary confirmed from the other side</h3>
+        <p>Replication queue: 10 attempts, 2 graded, 1 pass, 8 blank plans. Only one blank was a loop. Phase A does not loop; it fails to converge. The component the pipeline depends on first is the one that fails most. The programme closes with a second local pass, a corrected diagnosis, and its next question written down.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Roadmap</h2>
+      <p class="kicker">The goals as written in <code>docs/plans/2026-09-08_PLAN.md</code>, with their status, and the gates that follow from §2h of the scoreboard.</p>
+    </div>
+    <div class="gates">
+      <div class="gate">
+        <span class="tag">G1 · done 8 Sep</span>
+        <h3>Finish the two-phase run</h3>
+        <p>Phase A produces a complete, correct work order in 25 minutes. Both prerequisites — a transcript and recoverable partial output — turned out to be one change: <code>--session-dir</code> instead of <code>--no-session</code>.</p>
+        <p><b>G1b</b>, the diagnosis it revealed: "the junior loops for want of scope" is dead. It had the scope. The constraint moved to Rails 8 API knowledge.</p>
+      </div>
+      <div class="gate">
+        <span class="tag">G4 · PASS 8 Sep · G5 · failed</span>
+        <h3>Targeted knowledge, then replication</h3>
+        <p>G4: a small curated verified delta sheet closes the knowledge gap. Cheap, static, derivable from release notes for upgrade-shaped work.</p>
+        <p>G5 asked whether it replicates, whether Phase C1 works, whether it generalises. Answers: not yet (2 passes from 8 attempts), still unproven, untested. The control arm never ran on a healthy host.</p>
+      </div>
+      <div class="gate now">
+        <span class="tag">Next · why the survey doesn't finish</span>
+        <h3>Three leads, cheapest first</h3>
+        <ul>
+          <li><b>Incremental emission is not happening.</b> Every blank plan had zero assistant text. Fixing this converts timeouts into partial plans — the highest-value change available.</li>
+          <li><b>Task shape may decide it.</b> <code>ar-tenant-isolation</code> has no Rails keyword to grep; the survey answered by reading 104 files. Anchor-less tasks may need a different survey strategy.</li>
+          <li><b>Budget is not the lever.</b> More time has failed at 25 and 45 minutes. A 10-minute cap would have killed all three plans ever produced.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="deferred">
+      <h3>Deferred, and still open</h3>
+      <ul>
+        <li><b>Greenfield A/B/C</b> — local Qwen vs cloud Flash vs cloud SOTA with pair prompting, when a real set of customer requirements exists. Kickoff drafted, not run.</li>
+        <li><b>Quantisation ladder</b> — IQuest 40B 4-bit vs 8-bit, sequentially on one box. Staged, not run.</li>
+        <li><b>Fine-tuning a Rails-specialist model</b> — only once enough platforms have shipped to make a concrete cost, latency, or privacy case. Two-of-eight is a reason to fix the loop, not to train a model.</li>
+        <li><b>Phase C1</b> has run for real once and wrote no script. <b>The loop guard</b> has fired once in anger. Both remain unproven components of a design whose passes came from the other two.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAILURES ============ -->
+<section id="failures">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Trials and tribulations</h2>
+      <p class="kicker">Five failures, each of which paid for itself in what it revealed. None of them was a model failure.</p>
+    </div>
+    <div class="fails">
+      <article class="fail">
+        <h3>The bash tool-casing bug</h3>
+        <p class="what">Gemma 12B emitted <code>Bash</code>; the lemans harness expected <code>bash</code>. Six trials failed at the harness before the model's competence was ever tested, and they sat in the scored count until the forensic pass separated harness failures from model results. Fixed since.</p>
+        <p class="so"><b>What it taught:</b> tool-schema conformance is a harness/format interaction, not a knowledge gap, and no amount of retrieval addresses it. The programme's first lesson in not scoring its own bugs as model results.</p>
+      </article>
+      <article class="fail">
+        <h3>The definition-of-done backfire</h3>
+        <p class="what"><code>Bdod</code> added "fix every site this defect can occur at" to the stopping rule. It was the only arm that made the model act — 8 edits where every other <code>sup-legacy</code> arm made 0. It then wrote <code>lib/rails_ext/active_support_formatting.rb</code>, monkey-patching the removed Rails API back into existence globally, and broke the app's own test suite before the hidden tests ran.</p>
+        <p class="so"><b>What it taught:</b> instructing for completeness without constraining method converts inaction into sweeping wrong action. The remedy went into the work-order format, not the prompt: exact current code → exact replacement, per site.</p>
+      </article>
+      <article class="fail">
+        <h3>The wall-clock trap</h3>
+        <p class="what">The bench sets <code>step_limit: 100</code> and <code>timeout: 60m</code>. Cloud models burn 100 steps in minutes. Local runs via <code>ollama/</code> at 41–48 s/step hit the clock at 70–88 steps and never received their budget. A three-hour, 231-step run produced exactly what the one-hour runs produced, so more time was not the answer either.</p>
+        <p class="so"><b>What it taught:</b> set the clock so the step limit binds, or the result measures throughput rather than capability. At 22 s/step that means at least 40 minutes; at 45 s/step, 80. Every earlier upstream-vs-local comparison was retracted as not like-for-like.</p>
+      </article>
+      <article class="fail">
+        <h3>The blank plan epidemic</h3>
+        <p class="what">Two surveys timed out with 0 bytes at 25 and 45 minutes because <code>pi -p</code> prints only on completion. Two later blanks were retried silently before the stepper recorded them, so a run reported a clean PASS while concealing a 1-in-3 denominator; one transcript was overwritten and is unrecoverable. Then the replication queue: 8 blanks in 10 attempts, every one with zero assistant text.</p>
+        <p class="so"><b>What it taught:</b> a blank is a result and must be recorded as one. Session directories made timeouts recoverable, a stall detector caught the 33-minute silences, and the finding underneath — Phase A fails to converge rather than looping — is now the programme's open question.</p>
+      </article>
+      <article class="fail">
+        <h3>The host-down silent failure</h3>
+        <p class="what">oMLX on MBP-16 exited cleanly mid-run (<code>Finished server process</code>, empty crash log). The container issued 5 tool calls into a dead endpoint, then sat silent for 14 minutes, and was graded as a blank plan. Three gaps let it run that long: the health gate only runs at launch, the stall detector had not landed in that container, and the <code>KeepAlive</code> LaunchAgent had been removed that morning to make the GUI sole supervisor.</p>
+        <p class="so"><b>What it taught:</b> excluded from the denominator by Mark's call — counting a dead host as a model failure would overstate the blank-plan rate, exactly the drift per-attempt accounting exists to prevent. The control arm it belonged to therefore answers nothing, and is still owed a run.</p>
+      </article>
+      <div class="fail spacer">
+        <p>Harness, prompt, budget, instrumentation, operations. The leverage is in the loop, and so are the bugs. The scoreboard is harsher than it was a week ago because the accounting got better, not because the model got worse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FACTORY ============ -->
+<section id="factory">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The One-Person Software Factory</h2>
+      <p class="kicker">The blueprint this programme exists to serve — and which, until the Sep 8 migration, no model-ops document cross-referenced. Source: <code>docs/architecture/ONE_PERSON_FACTORY.md</code>, <code>docs/LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code> §3.</p>
+    </div>
+    <div class="factory-grid">
+      <div>
+        <h3>The vision</h3>
+        <p>One person ships and supports multiple platforms without a team. A hub-and-spoke orchestrator holds only routing, the credential vault, and escalation; everything else is delegated to sub-agents for spec, code, infra, marketing and support. Every action report carries exactly three fields — <code>status</code>, <code>data</code>, <code>next</code> — so the orchestrator reads state, not prose. The constraint the blueprint names is curation fatigue, not token cost.</p>
+        <p>The evaluation programme is the first hard measurement of the implementer seat. Its result is a routing rule with numbers behind it: well-specified single-locus work can go local today; multi-locus work goes local only with a curated knowledge sheet and a survey phase that finishes; everything else goes to the frontier.</p>
+        <h3 style="margin-top:22px">Why local models matter</h3>
+        <p>Three reasons, in the order the prehistory ranks them. Cost: August's OpenRouter bill was $101.48 USD, and two M1 Max machines bought at $2,400 each were the "idle" concern that started the exo work. A local loop at 22 s/step costs electricity. Privacy: client repositories never leave the machine. Sovereignty: the loop keeps running when an upstream API changes terms or availability.</p>
+        <p>The standing constraint of the eval sessions followed from this: everything stays local, both phases, no frontier model as architect or fallback. A pipeline that only works with a frontier planner tells the factory nothing new — Opus already passes most of the corpus unaided.</p>
+      </div>
+      <div>
+        <h3>The orchestrator pattern</h3>
+        <p>Ralph Loop: one agent, one goal per loop. The tiering from the reconciliation doc puts cloud models on design and decomposition into bounded "one feature, one verification" slices, and local executors on the slices. The programme's contribution is what a slice has to contain for a local executor to finish it.</p>
+        <ul class="roles" aria-label="Tiers and roles">
+          <li><b>Tier 1</b><span>Cloud orchestrator and design strategist. Decomposes features into bounded slices with acceptance criteria.</span></li>
+          <li><b>Tier 2</b><span>Local executors on Apple Silicon via oMLX. Qwen 3.8 27B 4-bit primary: logic, tests, ActiveRecord, bug fixes.</span></li>
+          <li><b>Phase A</b><span>The same local model as senior: read-only survey, emits the work order.</span></li>
+          <li><b>Phase B</b><span>The same local model as junior: "the search is finished," apply the work order, leave a change on disk.</span></li>
+          <li><b>Agents</b><span>Duncan Claw authored the reconciliation and the blueprint; the Sandi agent drove the Sep 6–8 evaluation runs.</span></li>
+        </ul>
+        <figure class="figure" style="margin-top:22px">
+<pre aria-label="Routing rule, text diagram">intent ──▶ Tier 1: spec, bounded slice, acceptance criteria
+                 │
+        slice shape?
+                 ├─ single-locus ─────────────▶ local, stopping rule       (3/3)
+                 ├─ multi-locus + upgrade-shaped ▶ local, A→B + verified sheet (2/8, Phase A gated)
+                 └─ multi-locus, no sheet ─────▶ frontier                  (Opus: 27 calls)
+                                                       │
+                                 per-attempt record ◀──┘  pass, fail, blank, host-down</pre>
+          <figcaption>The routing rule the programme validated. The parenthesised figures are the evidence behind each branch.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /lab -->
