@@ -712,7 +712,7 @@ code, pre {
 /* hero */
 .lab .hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
 @media (min-width: 900px) { .lab .hero-grid { grid-template-columns: 1.35fr 1fr; align-items: end; } }
-.lab .hero .dates { color: var(--lab-ink-soft); margin-bottom: 1.1rem; }
+.lab .hero .dates { color: var(--lab-ink-soft); margin-bottom: 1.1rem; text-align: center; }
 .lab .lede { color: var(--lab-ink-soft); font-size: 1.15rem; max-width: 60ch; }
 .lab .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.75rem; }
 .lab .btn {

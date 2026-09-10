@@ -24,4 +24,4 @@
 - name: Model ops lab
   url: /projects/model-ops-lab/
   tag: Local LLMs · RAG
-  description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — with a RAG layer in the loop. Slower than the cloud, a lot more interesting.
+  description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — the retrieval layer, the stopping rule, and the cloud-first pivot that the overnight test forced. Slower than the cloud, a lot more interesting.

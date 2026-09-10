@@ -9,6 +9,18 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
 <p class="lab-note"><strong>Snapshot</strong> of the programme as of 8 September 2026, 18:25 AEST, <strong>reconciled against the programme record on 9 September</strong>. The live record lives in the <code>model-ops</code> repo (<code>mrichardsJBOIT/model-ops</code>, private).</p>
 
 <div class="lab-update">
+  <strong style="color:var(--color-clay)">Update — 10 September · the overnight test, and the pivot.</strong> The 9–10 Sep night answered the question this page ended on — and the answer changed the plan:
+  <ul>
+    <li><strong>Held-out generalisation: 1 of 8.</strong> Eight unseen tasks through the blind topic-keyed sheet, first attempt: 1 passed (2 of 12 over both rounds, both <code>ar-compact-positions</code> — a one-token typo). Only one survey stopped on its own; every other plan came from forced emission.</li>
+    <li><strong>The sheet is real, and it is not the constraint.</strong> The coverage check handed the sheet's own facts to three known misses — <strong>0 of 3</strong>. The one pass came from a task whose fact the sheet did not carry.</li>
+    <li><strong>Cloud calibration, same harness:</strong> deepseek-v4-flash-0731, 21 tasks, <strong>10 of 20 graded, $3.20</strong> of the US$10 cap, 20–25 min a run clean. Matches its own leaderboard profile — no lift, no harm, at a quarter of the time and cost.</li>
+    <li><strong>Misses classified:</strong> <strong>13 of 17</strong> were process (plan / behaviour / scope); 2 were knowledge — both general Active Record facts, not release-note items.</li>
+    <li><strong>The pivot (09:00, 10 Sep).</strong> The generation tier is now the cloud model; the Macs become free replication capacity; the harness work — stopping, orientation, phase B discipline, a verify queue — continues in <code>avalon-speedway</code>, measured on that model. The cutover run <code>CUTlegacy</code> passed from the new tree, with phase C1 exercised green for the first time in the programme.</li>
+  </ul>
+  <p>The story, in words: <em><a href="/2026/09/10/model-ops-programme-part-2.html">The model-ops programme, part 2</a></em>. Details: <code>docs/SCOREBOARD.md</code> §2k.</p>
+</div>
+
+<div class="lab-update">
   <strong style="color:var(--color-clay)">Update — 9 September.</strong> The open question this page ended on (“why the survey doesn't finish”) was answered that evening and confirmed overnight:
   <ul>
     <li><strong>The blank plans were never blank.</strong> Every killed survey already held the full, correct plan in its transcript — phase A doesn't fail to converge, it fails to <em>stop</em>. A 40-call cap plus forced emission turned 6-of-8 blanks into <strong>3 of 4 graded passes</strong> (the <code>fe</code> queue, including the cutover run <code>FE1</code>).</li>
@@ -20,14 +32,14 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
 </div>
 
 <nav class="lab-toc" aria-label="On this page">
-  <a href="#overview">Overview</a> · <a href="#architecture">Architecture</a> · <a href="#findings">Findings</a> · <a href="#evidence">Before &amp; After</a> · <a href="#timeline">Timeline</a> · <a href="#roadmap">Roadmap</a> · <a href="#failures">Failures</a> · <a href="#factory">Factory</a>
+  <a href="#overview">Overview</a> · <a href="#architecture">Architecture</a> · <a href="#findings">Findings</a> · <a href="#evidence">Before &amp; After</a> · <a href="#timeline">Timeline</a> · <a href="#roadmap">Roadmap</a> · <a href="#failures">Failures</a> · <a href="#factory">Factory</a> · <a href="#decision-log">Decision log</a> · <a href="#timeline-tables">Full tables</a>
 </nav>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="dates">Apple Silicon · 25 August – 8 September 2026</div>
+      <div class="dates">Apple Silicon · 25 August – 10 September 2026</div>
       <h1>A 4-bit model on a laptop passed a real Rails task three times. Four lines of prompt did it. The next task showed exactly where it stops.</h1>
       <p class="lede">Fifteen days of measuring local coding agents against the 21-task <code>rails/ai-evals</code> corpus. The retrieval layer the programme was built to test turned out not to be the constraint. A stopping rule was. Then a boundary. Then a 1.6 KB sheet of verified upgrade notes.</p>
       <div class="cta">
@@ -43,6 +55,8 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
       <div class="row"><div class="lbl"><code>sup-legacy-conversions</code> <small>two-phase + knowledge sheet, per attempt</small></div><div class="cells" role="img" aria-label="2 passes, 1 fail, 5 blank plans from 8 attempts"><span class="cell pass"></span><span class="cell pass"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
       <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>stopping rule arms</small></div><div class="cells" role="img" aria-label="0 of 2 passed, 2 blank; later 2 of 2 with the logging sheet"><span class="cell"></span><span class="cell"></span><span class="cell invalid"></span><span class="cell invalid"></span></div></div>
       <div class="row"><div class="lbl"><code>sup-log-to-terminal</code> <small>+ verified logging sheet, Sep 9</small></div><div class="cells" role="img" aria-label="2 of 2 passed"><span class="cell pass"></span><span class="cell pass"></span></div></div>
+      <div class="row"><div class="lbl">Held-out tasks <small>8 unseen, blind topic sheet, first attempt</small></div><div class="cells" role="img" aria-label="1 of 8 passed"><span class="cell pass"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div></div>
+      <div class="row"><div class="lbl">Cloud calibration <small>deepseek-v4-flash-0731, same harness, 21 tasks</small></div><div class="cells" role="img" aria-label="10 of 20 passed, 1 ungraded"><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell pass"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell invalid"></span></div></div>
       <div class="legend"><span><i style="background:var(--pass)"></i>pass</span><span><i style="background:var(--fail)"></i>fail</span><span><i style="background:var(--invalid)"></i>blank plan / invalid</span></div>
       <p class="src">Per-attempt accounting. Sources: <code>docs/SCOREBOARD.md</code> §1–2h, <code>RESULTS_TABLE.md</code>.</p>
     </aside>
@@ -70,10 +84,13 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
         <div class="metric" role="listitem"><b>0 / 6</b><span>multi-locus passes with the stopping rule alone, across two tasks</span></div>
         <div class="metric" role="listitem"><b>1.6 KB</b><span>verified upgrade notes into Phase A: first <code>sup-legacy-conversions</code> pass, diff byte-identical to the oracle</span></div>
         <div class="metric" role="listitem"><b>8 / 10</b><span>Phase A attempts on Sep 8 that produced no work order — fixed that evening by a call cap + forced emission (3 of 4 graded passes)</span></div>
+        <div class="metric" role="listitem"><b>10 / 20</b><span>cloud calibration through the same harness — deepseek-v4-flash, $3.20, matching its own leaderboard profile</span></div>
+        <div class="metric" role="listitem"><b>1 / 8</b><span>held-out tasks passed on first attempt (2 / 12 over both rounds, both the same task)</span></div>
       </div>
     </div>
     <div class="callout" style="margin-top:24px">
       <p><strong>Read the denominator carefully.</strong> Per <em>graded</em> run, the pipeline looks good — when Phase A produces a work order, the rest works and the answer is exactly right. Per <em>attempt</em>, Phase A fails to produce a work order more often than it succeeds: <code>KBrep1</code> needed 3 attempts for its 1 pass; two produced no plan and cost ~45 minutes each. Until 2026-09-08 the retry logic recorded only the successful attempt, so the flattering rate was the only one visible. Every attempt is now written to the results table. For comparison against the published leaderboard, per-attempt is the honest figure — upstream runs do not get retries.</p>
+      <p>The held-out number tells the same story: <strong>1 of 8</strong> unseen tasks passed on first attempt (2 of 12 over both rounds, both the same task — a one-token typo), and <strong>13 of 17</strong> misses were process (plan, behaviour, scope), not knowledge. Per-attempt is the only denominator that makes that visible.</p>
     </div>
   </div>
 </section>
@@ -105,7 +122,7 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
         <rect class="box" x="705" y="90" width="235" height="80" rx="8"/>
         <text x="721" y="118" font-size="12" class="mut">Phase C · verify</text>
         <text x="721" y="140" font-size="15">bin/rails test → grade</text>
-        <text x="721" y="158" font-size="11" class="mut">C1 has run for real exactly once</text>
+        <text x="721" y="158" font-size="11" class="mut">C1 green once — CUTlegacy, 10 Sep</text>
         <path class="line" d="M170 130 H215"/><polygon points="209,125 215,130 209,135" fill="var(--muted)"/>
         <path class="line" d="M415 130 H460"/><polygon points="454,125 460,130 454,135" fill="var(--muted)"/>
         <path class="line" d="M660 130 H705"/><polygon points="699,125 705,130 699,135" fill="var(--muted)"/>
@@ -119,7 +136,7 @@ description: "What a 4-bit local model can and cannot do as a Rails 8 coding age
         <polygon points="310,199 315,205 320,199" fill="var(--muted)"/>
         <polygon points="555,199 560,205 565,199" fill="var(--muted)"/>
       </svg>
-      <figcaption>The design is A + B + C + guard. What actually produced the passes is narrower: task → knowledge sheet → A → B → grading. Phase C1 has been exercised once and wrote no script; the loop guard has fired in real runs (<code>KBrep2__a2</code> at 20.0%, <code>FE2</code>'s diffuse trip, <code>FE4</code>'s tight trip) — and since 8 Sep evening a trip ends in a forced plan rather than a blank. C1 remains the one designed component still unproven.</figcaption>
+      <figcaption>The design is A + B + C + guard. What actually produced the passes is narrower: task → knowledge sheet → A → B → grading. Phase C1 was exercised for real for the first time on the 10 Sep cutover run (<code>CUTlegacy</code>, green); the loop guard has fired in real runs (<code>KBrep2__a2</code> at 20.0%, <code>FE2</code>'s diffuse trip, <code>FE4</code>'s tight trip) — and since 8 Sep evening a trip ends in a forced plan rather than a blank. C1 is now a single green data point, not a proven component.</figcaption>
     </figure>
 
     <div class="wo">
@@ -468,6 +485,11 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
         <h3>Topic-keyed knowledge, and the hosts at full capacity</h3>
         <p>The sheet is now keyed by Rails topic, not task — eight sections, every entry verified with <code>bin/rails runner</code>, and the survey names the topics it needs. MBP-16's hidden blocker (the ANE prefill setting) was found and disabled, making it the faster host; eight held-out tasks and a cloud calibration lane (deepseek-v4-flash, capped at US$10) run overnight 9–10 Sep.</p>
       </li>
+      <li class="milestone">
+        <time datetime="2026-09-10T09:00">9–10 September, overnight, and the pivot</time>
+        <h3>The number that changed the plan</h3>
+        <p>Eight unseen tasks through the blind topic-keyed sheet: <strong>1 of 8</strong> on first attempt (<strong>2 of 12</strong> over both rounds, both <code>ar-compact-positions</code> — a one-token typo). The coverage check handed the sheet's own facts to three known misses: 0 of 3. The cloud lane — deepseek-v4-flash through the same harness — passed <strong>10 of 20</strong> at <strong>$3.20</strong>, matching its own leaderboard profile. 13 of 17 misses were process, not knowledge. On the morning of 10 Sep the generation tier moved to the cloud; the Macs become replication capacity; the harness work continues in <code>avalon-speedway</code>, where the cutover run <code>CUTlegacy</code> passed with phase C1 green for the first time.</p>
+      </li>
     </ol>
   </div>
 </section>
@@ -501,15 +523,21 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
           <li><b>Sep 9.</b> The sheet is keyed by Rails topic, not task; eight held-out tasks and a cloud calibration lane run overnight 9–10 Sep. Results land in the scoreboard §2k.</li>
         </ul>
       </div>
+      <div class="gate">
+        <span class="tag">Decided 10 Sep — cloud-first</span>
+        <h3>The pivot: the generation tier is now the cloud</h3>
+        <p>The overnight test gave the answer the routing rule needed. Eight unseen tasks through the blind sheet: <b>1 of 8</b> (2 of 12 over both rounds, both the same task — a one-token typo). The coverage check handed the sheet's own facts to three known misses: <b>0 of 3</b>. The cloud lane through the same harness passed <b>10 of 20</b> at <b>$3.20</b>, matching its own leaderboard profile — no lift, no harm, at a fraction of the time and cost. And 13 of 17 misses were process, not knowledge: the local model does not stop, loops on thin plans, edits the right file the wrong way.</p>
+        <p>The decision that follows is the pivot already recorded here: <b>the generation tier is the cloud model</b>; the Macs become <b>free replication capacity</b>; and the harness work — stopping, orientation, phase B discipline, a verify queue — continues in <code>avalon-speedway</code>, measured on that model. The cutover run <code>CUTlegacy</code> passed from the new tree, with phase C1 green for the first time.</p>
+      </div>
     </div>
     <div class="deferred">
       <h3>Deferred, and still open</h3>
       <ul>
-        <li><b>Generality across the suite</b> — the eight held-out tasks through topic-selected sheet sections ran overnight 9–10 Sep; the result is the next number on the board (scoreboard §2k).</li>
-        <li><b>Greenfield A/B/C</b> — local Qwen vs cloud Flash vs cloud SOTA with pair prompting, when a real set of customer requirements exists. Kickoff drafted, not run.</li>
+        <li><b>Generality across the suite</b> — the eight held-out tasks through topic-selected sheet sections ran overnight 9–10 Sep: <b>1 of 8</b> on first attempt, and the sheet's own facts did not convert three known misses (0 of 3). The routing rule is now: single-locus, local, well-specified — with the cloud as the generation tier for everything else.</li>
+        <li><b>Greenfield A/B/C</b> — now cloud-first: local Qwen vs cloud Flash vs cloud SOTA with pair prompting, when a real set of customer requirements exists. Kickoff drafted, not run.</li>
         <li><b>Quantisation ladder</b> — IQuest 40B 4-bit vs 8-bit, sequentially on one box. Staged, not run.</li>
         <li><b>Fine-tuning a Rails-specialist model</b> — only once enough platforms have shipped to make a concrete cost, latency, or privacy case. Two-of-eight is a reason to fix the loop, not to train a model.</li>
-        <li><b>Phase C1</b> has run for real once and wrote no script — the one designed component still unproven. <b>The sweet-spot experiment</b> (how much context is enough) is queued behind SPEC-1 Part C.</li>
+        <li><b>Phase C1</b> exercised for real once on the 10 Sep cutover (<code>CUTlegacy</code>, green) — a single data point, not proof. <b>The sweet-spot experiment</b> (how much context is enough) is queued behind SPEC-1 Part C.</li>
       </ul>
     </div>
   </div>
@@ -560,23 +588,20 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
   <div class="wrap">
     <div class="sec-head">
       <h2>The One-Person Software Factory</h2>
-      <p class="kicker">The blueprint this programme exists to serve — and which, until the Sep 8 migration, no model-ops document cross-referenced. Source: <code>docs/architecture/ONE_PERSON_FACTORY.md</code>, <code>docs/LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code> §3.</p>
+      <p class="kicker">The blueprint this programme exists to serve — and which, until the Sep 8 migration, no model-ops document cross-referenced. Source: <code>docs/architecture/ONE_PERSON_FACTORY.md</code>, <code>docs/LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code> §3. The routing rule below was rewritten on 10 Sep when the pivot landed.</p>
     </div>
     <div class="factory-grid">
       <div>
         <h3>The vision</h3>
         <p>One person ships and supports multiple platforms without a team. A hub-and-spoke orchestrator holds only routing, the credential vault, and escalation; everything else is delegated to sub-agents for spec, code, infra, marketing and support. Every action report carries exactly three fields — <code>status</code>, <code>data</code>, <code>next</code> — so the orchestrator reads state, not prose. The constraint the blueprint names is curation fatigue, not token cost.</p>
-        <p>The evaluation programme is the first hard measurement of the implementer seat. Its result is a routing rule with numbers behind it: well-specified single-locus work can go local today (<code>ac-throttle-search</code>, 3/3, plus the overnight wins); multi-locus work goes local only with a curated knowledge sheet and a survey phase that is <em>made</em> to finish by the harness; everything else goes to the frontier.</p>
-        <h3 style="margin-top:22px">Why local models matter</h3>
-        <p>Three reasons, in the order the prehistory ranks them. Cost: August's OpenRouter bill was $101.48 USD, and two M1 Max machines bought at $2,400 each were the "idle" concern that started the exo work. A local loop at 22 s/step costs electricity. Privacy: client repositories never leave the machine. Sovereignty: the loop keeps running when an upstream API changes terms or availability.</p>
-        <p>The standing constraint of the eval sessions followed from this: everything stays local, both phases, no frontier model as architect or fallback. A pipeline that only works with a frontier planner tells the factory nothing new — Opus already passes most of the corpus unaided.</p>
+        <p>The evaluation programme is the first hard measurement of the implementer seat. Its result is a routing rule with numbers behind it: well-specified single-locus work can go local today (<code>ac-throttle-search</code>, 3/3, plus the overnight wins); multi-locus work goes local only with a curated knowledge sheet and a survey phase that is <em>made</em> to finish by the harness; everything else goes to the frontier. On 10 Sep the frontier seat stops being a fallback and becomes the generation tier: the cloud calibration passes 10 of 20 at $3.20 through the same harness, and 13 of 17 held-out misses were process, not knowledge.</p>
       </div>
       <div>
         <h3>The orchestrator pattern</h3>
         <p>Ralph Loop: one agent, one goal per loop. The tiering from the reconciliation doc puts cloud models on design and decomposition into bounded "one feature, one verification" slices, and local executors on the slices. The programme's contribution is what a slice has to contain for a local executor to finish it.</p>
         <ul class="roles" aria-label="Tiers and roles">
           <li><b>Tier 1</b><span>Cloud orchestrator and design strategist. Decomposes features into bounded slices with acceptance criteria.</span></li>
-          <li><b>Tier 2</b><span>Local executors on Apple Silicon via oMLX. Qwen 3.8 27B 4-bit primary: logic, tests, ActiveRecord, bug fixes.</span></li>
+          <li><b>Tier 2</b><span>Local executors on Apple Silicon via oMLX. Qwen 3.8 27B 4-bit primary: logic, tests, ActiveRecord, bug fixes. Since 10 Sep: free replication capacity, not the generation tier.</span></li>
           <li><b>Phase A</b><span>The same local model as senior: read-only survey, emits the work order.</span></li>
           <li><b>Phase B</b><span>The same local model as junior: "the search is finished," apply the work order, leave a change on disk.</span></li>
           <li><b>Agents</b><span>Duncan Claw authored the reconciliation and the blueprint; the Sandi agent drove the Sep 6–8 evaluation runs; the programme record now lives in the <code>mrichardsJBOIT/model-ops</code> repo.</span></li>
@@ -587,13 +612,2011 @@ digest line    : * Probe Book, last edited 07 Sep</span></pre>
         slice shape?
                  ├─ single-locus ─────────────▶ local, stopping rule       (3/3)
                  ├─ multi-locus + upgrade-shaped ▶ local, A→B + verified sheet (2/8, Phase A gated)
-                 └─ multi-locus, no sheet ─────▶ frontier                  (Opus: 27 calls)
+                 └─ multi-locus, no sheet ─────▶ frontier · now the generation tier  (cloud: 10/20)
                                                        │
                                  per-attempt record ◀──┘  pass, fail, blank, host-down</pre>
-          <figcaption>The routing rule the programme validated. The parenthesised figures are the evidence behind each branch.</figcaption>
+          <figcaption>The routing rule the programme validated — revised 10 Sep: the <em>frontier</em> branch is now the <em>generation tier</em>, with the cloud calibration (10/20 at $3.20) as its evidence.</figcaption>
         </figure>
+        <h3 style="margin-top:22px">Why local models matter</h3>
+        <p>Three reasons, in the order the prehistory ranks them. Cost: August's OpenRouter bill was $101.48 USD, and two M1 Max machines bought at $2,400 each were the "idle" concern that started the exo work. A local loop at 22 s/step costs electricity. Privacy: client repositories never leave the machine. Sovereignty: the loop keeps running when an upstream API changes terms or availability.</p>
+        <p>The standing constraint of the eval sessions followed from this: everything stays local, both phases, no frontier model as architect or fallback. A pipeline that only works with a frontier planner tells the factory nothing new — Opus already passes most of the corpus unaided.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ DECISION LOG ============ -->
+<section id="decision-log">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Decision log</h2>
+      <p class="kicker">Every decision and its driver, numbered for review. Source: <code>doco/model-ops/DECISION_LOG.md</code>.</p>
+    </div>
+<p><strong>Compiled:</strong> 2026-09-10 (from the programme record;
+cross-referenced below) <strong>Purpose:</strong> one reviewable page of
+<em>decisions and their drivers</em> — the "why" behind each pivot.
+Results and evidence pointers are inline; the full narrative lives in
+<code>00_INDEX_AND_JOURNEY.md</code> and <code>SCOREBOARD.md</code>.
+Interpretation is deliberately out of scope here.</p>
+<p><strong>Legend:</strong> every row is numbered for cross-reference
+(e.g. "see D08" in a review).</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Date</th>
+<th>Decision</th>
+<th>Driver(s) — why</th>
+<th>Evidence</th>
+<th>Result / consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D01</td>
+<td>2026-08-27</td>
+<td>Adopt <strong><code>pi</code>
+(earendil-works/pi-coding-agent)</strong> as the local-model executor
+instead of OpenClaw-native subagents</td>
+<td>OpenClaw subagents fed XML/text tool dialects
+(<code>call:write{...}</code>, <code>&lt;function=...&gt;</code>) that
+oMLX rejected/stripped; <code>pi</code> speaks standard OpenAI
+<code>tools</code> JSON → 100% native tool execution on oMLX/LM
+Studio</td>
+<td><code>doco/model-ops/PI_HARNESS_LOCAL_MODELS.md</code>
+(VALIDATED)</td>
+<td>Qwen 3.8 27B 4-bit proven as champion local worker (0 tool
+errors)</td>
+</tr>
+<tr>
+<td>D02</td>
+<td>2026-08-28</td>
+<td>Re-rank models by <strong>agentic execution</strong>, not static
+rubric</td>
+<td>Static winners (IQuest 95/100) failed agentically; harness
+mechanics, not code intelligence, were the bottleneck</td>
+<td><code>LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code> §1–2</td>
+<td>Qwen 27B = primary local executor; IQuest/Gemma demoted</td>
+</tr>
+<tr>
+<td>D03</td>
+<td>2026-09-06</td>
+<td>Run the <strong>real lemans / rails-ai-evals harness</strong>
+(open-sourced that day) instead of our custom 4-task pilot</td>
+<td>lemans became open-source + shipped a Docker backend — the
+Daytona-account blocker disappeared; pilot was single-turn, no hidden
+tests, not leaderboard-comparable</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §1</td>
+<td>First real, public-methodology-comparable local numbers (Table B:
+0/11, all walls)</td>
+</tr>
+<tr>
+<td>D04</td>
+<td>2026-09-06</td>
+<td>Wire lemans via the <strong><code>ollama</code> provider</strong>,
+not <code>openai</code></td>
+<td><code>openai_api_base</code> silently never forwarded (miniswen's
+<code>configuration_requirements</code> omits it) → agent called real
+<code>api.openai.com</code>; <code>ollama</code> auto-forwards
+<code>OLLAMA_API_BASE</code> + zero-cost pricing</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §3.2</td>
+<td>Clean provider path; no RUBYOPT hacks</td>
+</tr>
+<tr>
+<td>D05</td>
+<td>2026-09-06</td>
+<td>Accept <strong><code>network.mode: public</code></strong> in the
+sandbox</td>
+<td>Docker backend doesn't support <code>allowlist</code>
+(Daytona-only)</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §3.3</td>
+<td>Documented rigor reduction; local runs could reach the internet</td>
+</tr>
+<tr>
+<td>D06</td>
+<td>2026-09-06</td>
+<td><strong>Stop benchmark</strong> after 2 stages — enough lemans
+signal</td>
+<td>Gemma 0/3 (tool-casing), Qwen 0/2 (both walls); pattern established,
+move to RAG layer</td>
+<td><code>memory/2026-09-06.md</code> 21:12;
+<code>LOCAL_DEV_AGENT_THESIS.md</code></td>
+<td>Next phase = RAG layer build</td>
+</tr>
+<tr>
+<td>D07</td>
+<td>2026-09-07</td>
+<td>Test the <strong>harness hypothesis</strong>: miniswen →
+<code>pi</code> (with edit tools)</td>
+<td>8 miniswen runs, <strong>zero edit calls</strong>, bash-only; one
+run re-ran the same grep 61×; "failure = converting a known answer into
+an edit"</td>
+<td><code>JOURNEY.md</code> §4;
+<code>harness-hypothesis-session-kickoff.md</code></td>
+<td>Exp 1: FAIL even with edit tools (still 0 edits!)</td>
+</tr>
+<tr>
+<td>D08</td>
+<td>2026-09-07</td>
+<td>Add the <strong>4-line stopping rule</strong> to the pi prompt</td>
+<td>Exp 1 proved tools alone changed nothing; the model <em>never stops
+investigating</em> (47× one grep)</td>
+<td><code>00_INDEX_AND_JOURNEY.md</code> §11</td>
+<td><strong>First local PASS</strong> (Exp 1b, 21 m 16 s, voluntary
+stop); 3/3 on <code>ac-throttle-search</code></td>
+</tr>
+<tr>
+<td>D09</td>
+<td>2026-09-07/08</td>
+<td>Overnight queue with stopping rule + 4 named prompt additions</td>
+<td>Replicate §11; find what breaks the repetition loop (20–82% dup in
+failures)</td>
+<td><code>JOURNEY.md</code> §12;
+<code>evidence/RESULTS_TABLE.md</code></td>
+<td>1/7 PASS; <code>sup-legacy</code> 0/4, <code>sup-log</code> 0/2 →
+stopping rule is single-locus only</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>2026-09-08</td>
+<td><strong>Two-phase pipeline</strong> (survey → execute → verify)</td>
+<td>Survey with read-only tools looped far less (2.6–5% dup); separate
+planning from editing</td>
+<td><code>PHASED_RUN_DESIGN.md</code></td>
+<td>Phase A became the bottleneck: 8/10 blank plans</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>2026-09-08</td>
+<td><strong>Forced emission</strong> — force a plan even on survey
+timeout</td>
+<td>Phase A never <em>converges</em> — 8 blank plans, 3 at 0%
+duplication; a survey that reads honestly must still emit (salvaged 7/7
+plans, all complete)</td>
+<td><code>SCOREBOARD.md</code> §2i</td>
+<td>FE1/FE2/FE3 PASS (3/4 graded); cutover <code>FE1</code> = first
+graded run from new repo</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>2026-09-08</td>
+<td>Build <strong>loop guard + stall detector</strong></td>
+<td>Duplication 6.8–52.9% in failures vs 0% in passes; one stall sat
+silent 33 min (three-quarters of a 45-min budget)</td>
+<td><code>SCOREBOARD.md</code> §2h</td>
+<td>Guard tripped once (KBrep2__a2); 4/8 blanks were ≤3.1% dup — loops
+were the minority case</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>2026-09-08</td>
+<td>Inject <strong>1.6 KB curated Rails upgrade notes</strong> into
+phase A</td>
+<td>Bphase4: correct scope, wrong remedy — model never found
+<code>to_fs</code>; a <em>named</em> missing fact, not retrieval</td>
+<td><code>SCOREBOARD.md</code> §2g</td>
+<td>Bprobe <strong>PASS</strong>, byte-identical to oracle; 2 passes
+from 8 attempts (KBrep2 blanked)</td>
+</tr>
+<tr>
+<td>D14</td>
+<td>2026-09-09</td>
+<td><strong>Cloud calibration</strong> (deepseek-flash, 21 tasks, US$10
+cap)</td>
+<td>Local results provisional; need a harness-lift number on a known
+model; leaderboard had 63 miniswen trials of the same model</td>
+<td><code>BACKLOG.md</code> M9–M11; <code>SCOREBOARD.md</code> §2k</td>
+<td><strong>10/20 PASS, $3.20</strong> — no lift, no harm; matches its
+own leaderboard profile</td>
+</tr>
+<tr>
+<td>D15</td>
+<td>2026-09-09</td>
+<td><strong>SPEC-2 experiment programme</strong> (held-out tasks,
+coverage check, plumbing)</td>
+<td>Answer the one question: can the local model + harness + blind sheet
+be trusted, at what pass rate, at what curation cost</td>
+<td><code>SCOREBOARD.md</code> §2k</td>
+<td>Held-out 1/8; sheet 0/3 with fact present, 1/3 absent; 2 of 17
+misses were knowledge</td>
+</tr>
+<tr>
+<td>D16</td>
+<td>2026-09-10</td>
+<td><strong>Pivot to cloud-first</strong> — stop active local
+investment</td>
+<td>Local 10/41 graded (1/8 unseen tasks) vs flash cloud 50% at
+$0.15/run; failures mostly <em>process</em>, and the harness that fixes
+them lifts any model</td>
+<td><code>2026-09-10_EVIDENCE_LOCAL_VS_CLOUD.md</code>;
+<code>STATUS.md</code> 09:50</td>
+<td>Local hosts become free replication capacity; harness work continues
+cloud-first</td>
+</tr>
+<tr>
+<td>D17</td>
+<td>2026-09-10</td>
+<td><strong>Migrate to <code>avalon-speedway</code></strong>
+(SPEC-3)</td>
+<td>Pivot confirmed; keep <code>model-ops</code> frozen as the private
+record</td>
+<td><code>REVIEW-3.md</code></td>
+<td>Migration reviewed PASS; <code>CUTlegacy</code> PASS from new tree
+(C1 green first time)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="source-map">Source map</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>doco/model-ops/00_INDEX_AND_JOURNEY.md</code></td>
+<td>chronological narrative, mistakes, thesis status</td>
+</tr>
+<tr>
+<td><code>doco/model-ops/RESULTS_SCOREBOARD.md</code></td>
+<td>every graded run (§2g/§2i/§2k = knowledge injection, forced
+emission, closing record)</td>
+</tr>
+<tr>
+<td><code>doco/model-ops/LEMANS_LOCAL_HARNESS_PLAN.md</code></td>
+<td>lemans setup decisions (D03–D05)</td>
+</tr>
+<tr>
+<td><code>doco/model-ops/PI_HARNESS_LOCAL_MODELS.md</code></td>
+<td>original pi validation (D01)</td>
+</tr>
+<tr>
+<td><code>doco/prompts/harness-hypothesis-session-kickoff.md</code> ·
+<code>doco/prompts/pi-harness-container-setup.md</code></td>
+<td>the pi experiment design (D07–D08)</td>
+</tr>
+<tr>
+<td><code>memory/2026-09-06.md</code> →
+<code>memory/2026-09-09.md</code></td>
+<td>day-level decisions (D06, D11–D14)</td>
+</tr>
+<tr>
+<td><code>model-ops/docs/SCOREBOARD.md</code> (migrated repo) §2i–§2k ·
+<code>BACKLOG.md</code> · <code>STATUS.md</code></td>
+<td>SPEC-2 programme, cloud calibration, pivot (D14–D16)</td>
+</tr>
+<tr>
+<td><code>avalon-speedway/results/</code> ·
+<code>REVIEW-3.md</code></td>
+<td>migration + cutover (D17)</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</section>
+
+<!-- ============ FULL RESULTS TABLES ============ -->
+<section id="timeline-tables">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Full results tables</h2>
+      <p class="kicker">Environments, the day-by-day timeline, the upstream leaderboard, and every graded run — the complete reference. Source: <code>doco/model-ops/TIMELINE_TABLES.md</code>.</p>
+    </div>
+<p><strong>Compiled:</strong> 2026-09-10, from the programme record
+(workspace + migrated <code>model-ops</code> repo). Companion:
+<code>doco/model-ops/DECISION_LOG.md</code> (decisions + drivers,
+D01–D17).</p>
+<p><strong>ID map</strong> — every row is numberable for review:</p>
+<ul>
+<li><code>ENV-01…06</code> technical environments</li>
+<li><code>T01…T41</code> timeline by day (2026-09-06 → 2026-09-10)</li>
+<li><code>A1-…</code> upstream leaderboard, all 18 models ·
+<code>A2-…</code> upstream per-task pass rates · <code>A3-…</code>
+same-task ours-vs-upstream · <code>A4-…</code> same-model
+head-to-head</li>
+<li><code>B01…B13</code> first non-harnessed runs (vanilla lemans on
+Colima/Lima)</li>
+<li><code>C01…C12</code> first pi harness results</li>
+<li><code>D01…D19</code> iterations &amp; experiments</li>
+<li><code>E01…E27</code> our cloud results (phased harness)</li>
+<li><code>L01…L17</code> decision log (mirror of
+<code>DECISION_LOG.md</code>; re-prefixed here to avoid colliding with
+Table D)</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> in the chat version, the decision log used
+<code>D01–D17</code>, which collides with this file's Table D
+(experiments). In this combined file the decisions are
+<code>L01–L17</code>, identical rows. <code>DECISION_LOG.md</code> keeps
+its original <code>D</code> numbering.</p>
+</blockquote>
+<hr />
+<h2 id="env--technical-environments">ENV — Technical environments</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Environment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENV-01</td>
+<td><strong>Upstream leaderboard (rails.org / Evil Martians)</strong> —
+rails/ai-evals: 18 frontier/cloud models × 3 trials × 21 tasks; lemans
+0.1.0–1.1.0 + miniswen; deterministic verifier
+(<code>bin/rails test</code> + <code>verification_test.rb</code>); 1,170
+runs, 1,134 graded</td>
+</tr>
+<tr>
+<td>ENV-02</td>
+<td><strong>First local runs ("lima")</strong> — lemans 1.3.1 +
+miniswen-installed, <code>--backend=docker</code> on Colima/Lima VM (Mac
+mini M1); 60-min wall + 100-step limit; bash-only tools;
+Qwen3.8-27B-4bit instruct (oMLX, MBP-14), Gemma 12B agentic 8-bit
+(oMLX)</td>
+</tr>
+<tr>
+<td>ENV-03</td>
+<td><strong>pi harness</strong> — <code>lemans-writebook-pi:v1</code>
+(pi v0.84.4 + Node 22 in-container), oMLX over Tailscale,
+<code>factory_harness.sh</code> grader, MBP-14; read/edit/write/bash
+tools</td>
+</tr>
+<tr>
+<td>ENV-04</td>
+<td><strong>Phased pipeline</strong> — survey→execute→verify
+(<code>phased_run.sh</code>), loop guard + stall detector + forced
+emission; Qwen 27B 4-bit (MBP-14); MBP-16 second host (Tailscale);
+Colima 4→6 CPU / 10 GiB</td>
+</tr>
+<tr>
+<td>ENV-05</td>
+<td><strong>Cloud calibration</strong> — deepseek-v4-flash-0731 via
+OpenRouter, same phased harness, US$10 cap (spent $3.20)</td>
+</tr>
+<tr>
+<td>ENV-06</td>
+<td><strong>avalon-speedway</strong> — 2026-09-10 migration of ENV-04/05
+code, cloud-first, REVIEW-3 reviewed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="t--timeline-by-day">T — Timeline by day</h2>
+<h3 id="2026-09-06">2026-09-06</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T01</td>
+<td>Thesis set: local models + RAG for Rails work; oracle pilots 4/4
+(ceiling tests)</td>
+</tr>
+<tr>
+<td>T02</td>
+<td>Retrieval layer built (<code>c92a71f</code>): Rails 8.2.0.alpha
+corpus, hybrid dense+lexical, RRF. Real retrieval <strong>56%
+R@5</strong> vs oracle 100%</td>
+</tr>
+<tr>
+<td>T03</td>
+<td>RAG A/B: 6 trials, <strong>0 solved</strong>, all killed by 60-min
+wall</td>
+</tr>
+<tr>
+<td>T04</td>
+<td>Forensics (<code>d2d9b94</code>): bash-only, zero edit calls, 61×
+identical probe in one run</td>
+</tr>
+<tr>
+<td>T05</td>
+<td>Gemma tool-case fix <code>Bash</code>→<code>bash</code>
+(<code>aa27d40</code>)</td>
+</tr>
+<tr>
+<td>T06</td>
+<td>Long run: Qwen thinking, 180 min / 400-step budget, 231 steps, no
+result (<code>75161eb</code>)</td>
+</tr>
+<tr>
+<td>T07</td>
+<td>Leaderboard comparison (<code>6f0522a</code>): cloud qwen3.8-27b
+76.2% vs local 0-for-7; A/B task = hardest upstream (15/18 models
+0/3)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-07">2026-09-07</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T08</td>
+<td>Cloud control: Qwen 27B full, openrouter → PASS (40 steps, 25 m,
+$0.26)</td>
+</tr>
+<tr>
+<td>T09</td>
+<td>RAG test: <code>sup-legacy-conversions</code> 1 of 3 PASS (61 steps,
+44 m); guardrail cost +52% steps / +49% wall</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>Opus 5 control (Claude Code, no docs): <code>sup-legacy</code> PASS,
+27 calls, 6.6 m</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>Matched pair (<code>as-purge</code>, frontmatter stripped): 0/2,
+byte-identical diffs — RAG = no effect</td>
+</tr>
+<tr>
+<td>T12</td>
+<td>Throughput: local 4-bit via <code>openai/</code> 22.0 s/step vs
+<code>ollama/</code> 41–48 s vs cloud 37.7 s</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>pi container built; scorer validated known-good AND known-bad</td>
+</tr>
+<tr>
+<td>T14</td>
+<td>Exp 1 (edit tools, no stopping rule): FAIL, 87 calls, 0 edits, 47×
+one grep, clock-killed</td>
+</tr>
+<tr>
+<td>T15</td>
+<td>Exp 1b (+4-line stopping rule): <strong>PASS</strong>, 28 calls, 3
+edits, 21 m 16 s, voluntary stop — first local pass ever</td>
+</tr>
+<tr>
+<td>T16</td>
+<td>Overnight queue (7 arms) launched 21:00</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-08">2026-09-08</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T17</td>
+<td>Overnight results: <code>ac-throttle-search</code> 3/3 total (C
+PASS); <code>sup-legacy</code> 0/4; <code>sup-log</code> 0/2 (§2d
+boundary)</td>
+</tr>
+<tr>
+<td>T18</td>
+<td>Bphase3: survey works (SURVEY_EXIT=0, all 7 sites) but phase B loops
+on a correct plan</td>
+</tr>
+<tr>
+<td>T19</td>
+<td>Bphase4: same work order → phase B edits 6/6 files exactly, wrong
+remedy (no <code>to_fs</code>)</td>
+</tr>
+<tr>
+<td>T20</td>
+<td>Bprobe: +1.6 KB verified upgrade notes → <strong>PASS</strong>, diff
+byte-identical to oracle</td>
+</tr>
+<tr>
+<td>T21</td>
+<td>Replication queue: 1 pass / 8 attempts; 8/10 blank plans; phase A =
+binding bottleneck; KBctl0 = dead host</td>
+</tr>
+<tr>
+<td>T22</td>
+<td>Dup-metric correction: recomputed on full args (Bdod 20%→6.8%); call
+counter bug fixed</td>
+</tr>
+<tr>
+<td>T23</td>
+<td>Loop guard + stall detector + forced emission built</td>
+</tr>
+<tr>
+<td>T24</td>
+<td>Migration to <code>model-ops</code> repo; smoke + strip-task proofs
+byte-identical</td>
+</tr>
+<tr>
+<td>T25</td>
+<td>FE queue (forced emission): cutover <code>FE1</code> PASS 22:10;
+FE2, FE3 PASS; FE4 FAIL → 3/4 graded</td>
+</tr>
+<tr>
+<td>T26</td>
+<td>S3: placebo 0/2 (<code>sup-legacy</code>+decoy), generality 2/2
+(<code>sup-log</code>+sheet)</td>
+</tr>
+<tr>
+<td>T27</td>
+<td>E4 (step 4, ten tasks upstream ≥88%): 2/10 passes, <strong>zero
+blank plans</strong> (E4throttle, E4legacy)</td>
+</tr>
+<tr>
+<td>T28</td>
+<td>MBP-16 joins Tailscale; died mid-run (no supervisor) → KBctl0
+lost</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-09">2026-09-09</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T29</td>
+<td>SPEC-2 defined; blind sheet authored from changelogs (~2 h);
+selection recall 0.87, micro precision 0.24</td>
+</tr>
+<tr>
+<td>T30</td>
+<td>Held-out queue <code>ho</code>/<code>ho16</code> launched (8 unseen
+tasks)</td>
+</tr>
+<tr>
+<td>T31</td>
+<td>Cloud calibration <code>cal1</code>–<code>cal3</code> launched
+12:32; paused 13:10 (4-CPU Colima contention)</td>
+</tr>
+<tr>
+<td>T32</td>
+<td>Queue 5 (<code>rr</code>/<code>rr16</code>) armed (six known misses
+through tier 2)</td>
+</tr>
+<tr>
+<td>T33</td>
+<td>Candidate screens: LM Studio MoE (5 tasks, MBP-14), IQuest-40B-Loop
+(floor, MBP-14), Gemma 12B (MBP-16)</td>
+</tr>
+<tr>
+<td>T34</td>
+<td>Model-ops lab page + blog live on gr8ful.dev (12:09–13:00),
+reconciled to record (12:56), GoatCounter analytics (17:31). Pre-pivot
+record still said "survey not converging" — corrected on the page</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-09-10">2026-09-10</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T35</td>
+<td>All queues complete, hosts idle; Colima resized to 6 CPU / 10 GiB
+(08:30)</td>
+</tr>
+<tr>
+<td>T36</td>
+<td>Gemma screens closed: 0/5; thinking-off pair FAIL (over-edited 3
+files → syntax error); 3 held-out runs host-lost to MBP-16 15 W adapter,
+rerun as <code>…B</code></td>
+</tr>
+<tr>
+<td>T37</td>
+<td>Closing record §2k: held-out 1/8 (2/12 both rounds), queue 5 1/6,
+plumbing 0/2, cloud 10/20, every miss classified, one-paragraph
+answer</td>
+</tr>
+<tr>
+<td>T38</td>
+<td><strong>09:00 pivot decision (Mark): cloud-first</strong>; no more
+code changes in <code>model-ops</code></td>
+</tr>
+<tr>
+<td>T39</td>
+<td>Migration to <code>avalon-speedway</code> (<code>de67d87</code>;
+strict scrub clean, smoke identical); REVIEW-3 PASS; R7/R10
+recorded</td>
+</tr>
+<tr>
+<td>T40</td>
+<td>Cutover run <code>CUTlegacy</code> launched 09:46 →
+<strong>PASS</strong> 09:59 (94 calls, 7 edits, 6.4% dup; phase C1 green
+first time in programme)</td>
+</tr>
+<tr>
+<td>T41</td>
+<td>Remaining: push private (both repos local-only), R7 sign-off, R10
+deferred, 3 retired automations to delete</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="a--railsorgevil-martians-leaderboard-vs-our-cloud-results">A —
+rails.org/Evil Martians leaderboard vs our cloud results</h2>
+<h3 id="a1--upstream-leaderboard-all-18-models-21-tasks--3-trials">A1 —
+Upstream leaderboard, all 18 models (21 tasks × 3 trials)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Model</th>
+<th>Pass</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1-01</td>
+<td>claude-fable-5.1</td>
+<td>58/63</td>
+<td>92.1%</td>
+</tr>
+<tr>
+<td>A1-02</td>
+<td>claude-opus-5</td>
+<td>58/63</td>
+<td>92.1%</td>
+</tr>
+<tr>
+<td>A1-03</td>
+<td>claude-fable-5</td>
+<td>57/63</td>
+<td>90.5%</td>
+</tr>
+<tr>
+<td>A1-04</td>
+<td>kimi-k3</td>
+<td>57/63</td>
+<td>90.5%</td>
+</tr>
+<tr>
+<td>A1-05</td>
+<td>gpt-5.6-sol</td>
+<td>53/63</td>
+<td>84.1%</td>
+</tr>
+<tr>
+<td>A1-06</td>
+<td>ox-alpha</td>
+<td>52/63</td>
+<td>82.5%</td>
+</tr>
+<tr>
+<td>A1-07</td>
+<td>grok-4.6</td>
+<td>52/63</td>
+<td>82.5%</td>
+</tr>
+<tr>
+<td>A1-08</td>
+<td>glm-5.3-flash</td>
+<td>52/63</td>
+<td>82.5%</td>
+</tr>
+<tr>
+<td>A1-09</td>
+<td>glm-5.3</td>
+<td>50/63</td>
+<td>79.4%</td>
+</tr>
+<tr>
+<td>A1-10</td>
+<td>claude-opus-4.8</td>
+<td>50/63</td>
+<td>79.4%</td>
+</tr>
+<tr>
+<td>A1-11</td>
+<td>gpt-5.6-terra</td>
+<td>49/63</td>
+<td>77.8%</td>
+</tr>
+<tr>
+<td>A1-12</td>
+<td>muse-spark-1.2</td>
+<td>48/63</td>
+<td>76.2%</td>
+</tr>
+<tr>
+<td>A1-13</td>
+<td><strong>qwen3.8-27b</strong> (same family as our local)</td>
+<td>48/63</td>
+<td>76.2%</td>
+</tr>
+<tr>
+<td>A1-14</td>
+<td>gpt-5.6-luna</td>
+<td>46/63</td>
+<td>73.0%</td>
+</tr>
+<tr>
+<td>A1-15</td>
+<td>gemini-3.7-flash</td>
+<td>45/63</td>
+<td>71.4%</td>
+</tr>
+<tr>
+<td>A1-16</td>
+<td>claude-sonnet-5</td>
+<td>44/63</td>
+<td>69.8%</td>
+</tr>
+<tr>
+<td>A1-17</td>
+<td>glm-5.2</td>
+<td>42/63</td>
+<td>66.7%</td>
+</tr>
+<tr>
+<td>A1-18</td>
+<td><strong>deepseek-v4-flash-0731</strong> (the model we later
+calibrated)</td>
+<td>41/63</td>
+<td>65.1%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a2--upstream-per-task-pass-rates-18-models--3--54-runstask">A2 —
+Upstream per-task pass rates (18 models × 3 = 54 runs/task)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Task</th>
+<th>Difficulty</th>
+<th>Upstream pass rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A2-01</td>
+<td>as-purge-embedded-images</td>
+<td>hard</td>
+<td>7.4% (4/54)</td>
+</tr>
+<tr>
+<td>A2-02</td>
+<td>ar-erase-account</td>
+<td>hard</td>
+<td>18.5% (10/54)</td>
+</tr>
+<tr>
+<td>A2-03</td>
+<td>hw-scoped-broadcast</td>
+<td>medium</td>
+<td>64.8% (35/54)</td>
+</tr>
+<tr>
+<td>A2-04</td>
+<td>ar-bulk-access-grants</td>
+<td>medium</td>
+<td>70.4% (38/54)</td>
+</tr>
+<tr>
+<td>A2-05</td>
+<td>sup-log-to-terminal</td>
+<td>medium</td>
+<td>70.4% (38/54)</td>
+</tr>
+<tr>
+<td>A2-06</td>
+<td>ac-deep-link-return</td>
+<td>medium</td>
+<td>74.1% (40/54)</td>
+</tr>
+<tr>
+<td>A2-07</td>
+<td>as-variant-processed-once</td>
+<td>medium</td>
+<td>75.9% (41/54)</td>
+</tr>
+<tr>
+<td>A2-08</td>
+<td>ar-compact-positions</td>
+<td>medium</td>
+<td>79.6% (43/54)</td>
+</tr>
+<tr>
+<td>A2-09</td>
+<td>av-toc-cache-per-role</td>
+<td>medium</td>
+<td>83.3% (45/54)</td>
+</tr>
+<tr>
+<td>A2-10</td>
+<td>sec-audit-sweep</td>
+<td>medium</td>
+<td>83.3% (45/54)</td>
+</tr>
+<tr>
+<td>A2-11</td>
+<td>ar-announce-once</td>
+<td>easy</td>
+<td>85.2% (46/54)</td>
+</tr>
+<tr>
+<td>A2-12</td>
+<td>aj-enqueue-after-commit</td>
+<td>medium</td>
+<td>88.9% (48/54)</td>
+</tr>
+<tr>
+<td>A2-13</td>
+<td>sup-legacy-conversions</td>
+<td>easy</td>
+<td>88.9% (48/54)</td>
+</tr>
+<tr>
+<td>A2-14</td>
+<td>ar-tenant-isolation</td>
+<td>medium</td>
+<td>88.9% (48/54)</td>
+</tr>
+<tr>
+<td>A2-15</td>
+<td>aj-resumable-cleanup</td>
+<td>easy</td>
+<td>94.4% (51/54)</td>
+</tr>
+<tr>
+<td>A2-16</td>
+<td>tst-error-page-flake</td>
+<td>easy</td>
+<td>98.1% (53/54)</td>
+</tr>
+<tr>
+<td>A2-17</td>
+<td>ar-archive-book-access</td>
+<td>easy</td>
+<td>98.1% (53/54)</td>
+</tr>
+<tr>
+<td>A2-18</td>
+<td>ar-atomic-import</td>
+<td>easy</td>
+<td>100% (54/54)</td>
+</tr>
+<tr>
+<td>A2-19</td>
+<td>sup-cache-library-digest</td>
+<td>easy</td>
+<td>100% (54/54)</td>
+</tr>
+<tr>
+<td>A2-20</td>
+<td>ar-release-recap</td>
+<td>easy</td>
+<td>100% (54/54)</td>
+</tr>
+<tr>
+<td>A2-21</td>
+<td>ac-throttle-search</td>
+<td>easy</td>
+<td>100% (54/54)</td>
+</tr>
+</tbody>
+</table>
+<h3
+id="a3--same-task-comparison-our-cloud-deepseek-flash-our-harness-vs-upstream-rate">A3
+— Same-task comparison: our cloud (deepseek flash, our harness) vs
+upstream rate</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Task</th>
+<th>Upstream rate</th>
+<th>Ours (flash)</th>
+<th>Outcome class (§2k)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A3-01</td>
+<td>as-purge-embedded-images</td>
+<td>7.4%</td>
+<td>FAIL</td>
+<td>same (both ~0)</td>
+</tr>
+<tr>
+<td>A3-02</td>
+<td>ar-erase-account</td>
+<td>18.5%</td>
+<td>FAIL</td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-03</td>
+<td>hw-scoped-broadcast</td>
+<td>64.8%</td>
+<td>FAIL</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>A3-04</td>
+<td>ar-bulk-access-grants</td>
+<td>70.4%</td>
+<td>FAIL</td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-05</td>
+<td>sup-log-to-terminal</td>
+<td>70.4%</td>
+<td>FAIL</td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-06</td>
+<td>ac-deep-link-return</td>
+<td>74.1%</td>
+<td>FAIL</td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-07</td>
+<td>as-variant-processed-once</td>
+<td>75.9%</td>
+<td>FAIL</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>A3-08</td>
+<td>ar-compact-positions</td>
+<td>79.6%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-09</td>
+<td>av-toc-cache-per-role</td>
+<td>83.3%</td>
+<td>FAIL</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>A3-10</td>
+<td>sec-audit-sweep</td>
+<td>83.3%</td>
+<td><strong>UNGRADED</strong> (no plan ×2)</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>A3-11</td>
+<td>ar-announce-once</td>
+<td>85.2%</td>
+<td><strong>PASS</strong> (1 retry)</td>
+<td><strong>ours better</strong></td>
+</tr>
+<tr>
+<td>A3-12</td>
+<td>aj-enqueue-after-commit</td>
+<td>88.9%</td>
+<td><strong>PASS</strong> (1 retry)</td>
+<td><strong>ours better</strong></td>
+</tr>
+<tr>
+<td>A3-13</td>
+<td>sup-legacy-conversions</td>
+<td>88.9%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-14</td>
+<td>ar-tenant-isolation</td>
+<td>88.9%</td>
+<td>FAIL</td>
+<td>mixed</td>
+</tr>
+<tr>
+<td>A3-15</td>
+<td>aj-resumable-cleanup</td>
+<td>94.4%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-16</td>
+<td>tst-error-page-flake</td>
+<td>98.1%</td>
+<td>FAIL</td>
+<td><strong>ours worse</strong> (plumbing loss)</td>
+</tr>
+<tr>
+<td>A3-17</td>
+<td>ar-archive-book-access</td>
+<td>98.1%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-18</td>
+<td>ar-atomic-import</td>
+<td>100%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-19</td>
+<td>sup-cache-library-digest</td>
+<td>100%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-20</td>
+<td>ar-release-recap</td>
+<td>100%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>A3-21</td>
+<td>ac-throttle-search</td>
+<td>100%</td>
+<td><strong>PASS</strong></td>
+<td>same</td>
+</tr>
+</tbody>
+</table>
+<h3
+id="a4--same-model-head-to-head-upstream-deepseek-flash-vs-ours-via-our-harness">A4
+— Same-model head-to-head: upstream deepseek-flash vs ours via our
+harness</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Config</th>
+<th>Pass rate</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A4-01</td>
+<td>Upstream (miniswen, lemans)</td>
+<td>41/63 = 65.1% (rank 18/18)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>A4-02</td>
+<td>Ours (phased harness, 21 tasks, ENV-05)</td>
+<td>10/20 graded = 50%</td>
+<td>1 task ungraded (audit); retry needed on 9 first attempts</td>
+</tr>
+<tr>
+<td>A4-03</td>
+<td>Cross-tab</td>
+<td>12 same · 2 ours-better · 1 ours-worse · 4 mixed</td>
+<td>Cost $3.20 of $10 cap</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2
+id="b--first-non-harnessed-results-running-lima-env-02-lemansminiswen-on-colima">B
+— First non-harnessed results, running Lima (ENV-02, lemans/miniswen on
+Colima)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Model</th>
+<th>Task</th>
+<th>Reward</th>
+<th>Outcome</th>
+<th>Steps</th>
+<th>Duration</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B01</td>
+<td>Gemma 12B 8-bit (pre-fix)</td>
+<td>ac-throttle-search</td>
+<td>0</td>
+<td>format_error</td>
+<td>8</td>
+<td>2397.6 s</td>
+<td><code>Bash</code> casing bug ×3</td>
+</tr>
+<tr>
+<td>B02</td>
+<td>Gemma 12B (pre-fix)</td>
+<td>ar-announce-once</td>
+<td>0</td>
+<td>format_error</td>
+<td>6</td>
+<td>205.8 s</td>
+<td>same bug</td>
+</tr>
+<tr>
+<td>B03</td>
+<td>Gemma 12B (pre-fix)</td>
+<td>ar-archive-book-access</td>
+<td>0</td>
+<td>format_error</td>
+<td>16</td>
+<td>2588.4 s</td>
+<td>same bug</td>
+</tr>
+<tr>
+<td>B04</td>
+<td>Qwen 27B 4-bit</td>
+<td>ac-throttle-search</td>
+<td>0</td>
+<td>wall</td>
+<td>70</td>
+<td>3816.9 s</td>
+<td>never reached verifier</td>
+</tr>
+<tr>
+<td>B05</td>
+<td>Qwen 27B 4-bit</td>
+<td>as-purge-embedded-images</td>
+<td>0</td>
+<td>wall</td>
+<td>80</td>
+<td>3774.2 s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>B06</td>
+<td>Qwen 27B 4-bit</td>
+<td>sup-log-to-terminal</td>
+<td>0</td>
+<td>wall</td>
+<td>71</td>
+<td>3742.4 s</td>
+<td>only run to produce a diff (1218 B)</td>
+</tr>
+<tr>
+<td>B07</td>
+<td>Qwen 27B 4-bit +RAG</td>
+<td>ac-throttle-search</td>
+<td>0</td>
+<td>wall</td>
+<td>78</td>
+<td>3754.6 s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>B08</td>
+<td>Qwen 27B 4-bit +RAG</td>
+<td>as-purge-embedded-images</td>
+<td>0</td>
+<td>wall</td>
+<td>80</td>
+<td>3744.8 s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>B09</td>
+<td>Qwen 27B 4-bit +RAG</td>
+<td>sup-log-to-terminal</td>
+<td>0</td>
+<td>wall</td>
+<td>88</td>
+<td>3784.9 s</td>
+<td>61× repeated probe</td>
+</tr>
+<tr>
+<td>B10</td>
+<td>Gemma 12B (post-fix)</td>
+<td>sup-log-to-terminal</td>
+<td>—</td>
+<td>agent_error (exit 124)</td>
+<td>—</td>
+<td>3660 s</td>
+<td>harness loss, unscored</td>
+</tr>
+<tr>
+<td>B11</td>
+<td>Qwen 27B 4-bit thinking</td>
+<td>sup-log-to-terminal</td>
+<td>0</td>
+<td>wall</td>
+<td>231</td>
+<td>10,980 s</td>
+<td>180-min long run (T06)</td>
+</tr>
+<tr>
+<td>B12</td>
+<td>Gemma 12B +RAG ×3</td>
+<td>3 tasks</td>
+<td>—</td>
+<td>exit 124 ×3</td>
+<td>—</td>
+<td>~3 h</td>
+<td>harness flush bug, all lost</td>
+</tr>
+</tbody>
+</table>
+<p><strong>B13 — Total:</strong> 0/11 scored trials, 0 reached the
+verifier; 11 killed by wall, 4 harness losses, 1 tool-casing bug
+set.</p>
+<hr />
+<h2 id="c--first-pi-results-env-03">C — First pi results (ENV-03)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Run</th>
+<th>Task</th>
+<th>Arm</th>
+<th>Grade</th>
+<th>Calls</th>
+<th>Edit/Write</th>
+<th>Dup</th>
+<th>Time</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C01</td>
+<td>Exp 1</td>
+<td>ac-throttle-search</td>
+<td>no stopping rule</td>
+<td>FAIL</td>
+<td>87</td>
+<td>0</td>
+<td>52.9%</td>
+<td>60 m killed</td>
+<td>47× one grep</td>
+</tr>
+<tr>
+<td>C02</td>
+<td>Exp 1b</td>
+<td>ac-throttle-search</td>
+<td>+4-line stopping rule</td>
+<td><strong>PASS</strong></td>
+<td>28</td>
+<td>3</td>
+<td>0%</td>
+<td>21 m 16 s</td>
+<td>voluntary stop; first local pass</td>
+</tr>
+<tr>
+<td>C03</td>
+<td>Run A</td>
+<td>ac-throttle-search</td>
+<td>rule only</td>
+<td><strong>PASS</strong></td>
+<td>28</td>
+<td>3</td>
+<td>0%</td>
+<td>~21 m</td>
+<td>repeat of C02</td>
+</tr>
+<tr>
+<td>C04</td>
+<td>C (overnight)</td>
+<td>ac-throttle-search</td>
+<td>rule only</td>
+<td><strong>PASS</strong></td>
+<td>26</td>
+<td>4</td>
+<td>0%</td>
+<td>—</td>
+<td>different implementation (re-derived)</td>
+</tr>
+<tr>
+<td>C05</td>
+<td>Bdod</td>
+<td>sup-legacy-conversions</td>
+<td>+ definition-of-done</td>
+<td>FAIL</td>
+<td>59</td>
+<td>8</td>
+<td>6.8%</td>
+<td>—</td>
+<td>global monkey-patch, broke own suite</td>
+</tr>
+<tr>
+<td>C06</td>
+<td>Bdead</td>
+<td>sup-legacy-conversions</td>
+<td>+ dead-end rule</td>
+<td>FAIL</td>
+<td>95</td>
+<td>0</td>
+<td>40.0%</td>
+<td>—</td>
+<td>38× one probe</td>
+</tr>
+<tr>
+<td>C07</td>
+<td>Bphase</td>
+<td>sup-legacy-conversions</td>
+<td>two-phase</td>
+<td>INVALID</td>
+<td>39</td>
+<td>0</td>
+<td>2.6%</td>
+<td>—</td>
+<td>survey cap → blank plan</td>
+</tr>
+<tr>
+<td>C08</td>
+<td>Mstop</td>
+<td>sup-log-to-terminal</td>
+<td>rule only</td>
+<td>FAIL</td>
+<td>87</td>
+<td>1</td>
+<td>28.7%</td>
+<td>—</td>
+<td>edited only development.rb</td>
+</tr>
+<tr>
+<td>C09</td>
+<td>Mboth</td>
+<td>sup-log-to-terminal</td>
+<td>+DoD +dead-end</td>
+<td>FAIL</td>
+<td>71</td>
+<td>0</td>
+<td>25.4%</td>
+<td>—</td>
+<td>edited db/schema.rb (forbidden)</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>Bphase3</td>
+<td>sup-legacy-conversions</td>
+<td>survey instrumented</td>
+<td>FAIL</td>
+<td>49</td>
+<td>0</td>
+<td>24.5%</td>
+<td>—</td>
+<td>looped holding a correct plan</td>
+</tr>
+<tr>
+<td>C11</td>
+<td>Bphase4</td>
+<td>sup-legacy-conversions</td>
+<td>same order, guard on</td>
+<td>FAIL</td>
+<td>13</td>
+<td>6</td>
+<td>0%</td>
+<td>6 m 13 s</td>
+<td>6/6 files right scope, wrong remedy</td>
+</tr>
+<tr>
+<td>C12</td>
+<td>Bprobe</td>
+<td>sup-legacy-conversions</td>
+<td>+1.6 KB upgrade notes</td>
+<td><strong>PASS</strong></td>
+<td>13</td>
+<td>6</td>
+<td>0%</td>
+<td>—</td>
+<td>diff byte-identical to oracle</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="d--iterations--experiments-results">D — Iterations &amp;
+experiments (results)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Iteration / Experiment</th>
+<th>Headline result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D01</td>
+<td>RAG A/B (ENV-02 bash-only)</td>
+<td>0/6, all wall-clocked</td>
+</tr>
+<tr>
+<td>D02</td>
+<td>Cloud control (Qwen 27B full)</td>
+<td>1/1 PASS (T08)</td>
+</tr>
+<tr>
+<td>D03</td>
+<td>RAG test (<code>sup-legacy</code>, targeted)</td>
+<td>1/3 PASS (T09)</td>
+</tr>
+<tr>
+<td>D04</td>
+<td>Harness hypothesis / Opus control</td>
+<td>1/1 PASS, no docs (T10)</td>
+</tr>
+<tr>
+<td>D05</td>
+<td>Matched pair (plain vs RAG)</td>
+<td>0/2, byte-identical diffs (T11)</td>
+</tr>
+<tr>
+<td>D06</td>
+<td>Stopping rule (pi, paired)</td>
+<td>Exp 1 FAIL → 1b PASS; 4/4 total on ac-throttle (Table C)</td>
+</tr>
+<tr>
+<td>D07</td>
+<td>Overnight boundary (7 arms)</td>
+<td>1/7 PASS; 0/6 on multi-locus tasks (Table C rows C04–C09)</td>
+</tr>
+<tr>
+<td>D08</td>
+<td>Two-phase survey→execute</td>
+<td>Bphase3 FAIL (phase B loops); Bphase4 FAIL (wrong remedy)</td>
+</tr>
+<tr>
+<td>D09</td>
+<td>Knowledge injection</td>
+<td>Bprobe 1/1 PASS, oracle-identical</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>Replication queue (KB)</td>
+<td>1 pass / 8 attempts; 8/10 blank plans; KBctl0 host-down</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>Forced emission (FE)</td>
+<td>3/4 graded passes; FE1 = first graded run from new repo</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>Placebo + generality (S3)</td>
+<td>placebo 0/2, generality 2/2</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>Step-4 ten tasks (E4)</td>
+<td>2/10 passes, zero blank plans</td>
+</tr>
+<tr>
+<td>D14</td>
+<td>Held-out tasks (SPEC-2 q2)</td>
+<td>1/8 first attempt (2/12 both rounds) — both
+<code>ar-compact-positions</code></td>
+</tr>
+<tr>
+<td>D15</td>
+<td>Six known misses w/ sheet (q5)</td>
+<td>1/6 — 0/3 with fact present, 1/3 without</td>
+</tr>
+<tr>
+<td>D16</td>
+<td>Plumbing (q7)</td>
+<td>0/2; restore-aware addendum deferred</td>
+</tr>
+<tr>
+<td>D17</td>
+<td>Cloud calibration (q1)</td>
+<td>10/20, $3.20, no lift/no harm vs leaderboard (Table E)</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>Candidate screens</td>
+<td>LM MoE 1/5 · IQuest 0/1 · Gemma 0/5 · Gemma no-think 0/1</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>Cutover run (avalon-speedway)</td>
+<td>1/1 PASS — CUTlegacy (T40)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="e--our-cloud-results-all-runs-through-our-harness-env-030506">E
+— Our cloud results (all runs through our harness, ENV-03/05/06)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Config</th>
+<th>Task</th>
+<th>Result</th>
+<th>Calls</th>
+<th>Dup</th>
+<th>e/w</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E01</td>
+<td>Qwen 27B full, openrouter</td>
+<td>ac-throttle-search</td>
+<td><strong>PASS</strong></td>
+<td>40</td>
+<td>—</td>
+<td>—</td>
+<td>25 m, $0.26</td>
+</tr>
+<tr>
+<td>E02</td>
+<td>Qwen 27B full +RAG</td>
+<td>ac-throttle-search</td>
+<td><strong>PASS</strong></td>
+<td>61</td>
+<td>—</td>
+<td>—</td>
+<td>37 m, guardrail cost</td>
+</tr>
+<tr>
+<td>E03</td>
+<td>Qwen 27B full +RAG</td>
+<td>sup-legacy-conversions</td>
+<td><strong>PASS</strong> (1/3)</td>
+<td>61</td>
+<td>—</td>
+<td>—</td>
+<td>44 m</td>
+</tr>
+<tr>
+<td>E04</td>
+<td>Opus 5, Claude Code</td>
+<td>sup-legacy-conversions</td>
+<td><strong>PASS</strong></td>
+<td>27</td>
+<td>—</td>
+<td>—</td>
+<td>6.6 m, no docs</td>
+</tr>
+<tr>
+<td>E05</td>
+<td>flash (ENV-05)</td>
+<td>as-purge-embedded-images</td>
+<td>FAIL</td>
+<td>139</td>
+<td>2.9%</td>
+<td>2</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E06</td>
+<td>flash</td>
+<td>ar-erase-account</td>
+<td>FAIL</td>
+<td>84</td>
+<td>6.0%</td>
+<td>3</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E07</td>
+<td>flash</td>
+<td>hw-scoped-broadcast</td>
+<td>FAIL</td>
+<td>76</td>
+<td>2.6%</td>
+<td>2</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E08</td>
+<td>flash</td>
+<td>ar-bulk-access-grants</td>
+<td>FAIL</td>
+<td>79</td>
+<td>2.5%</td>
+<td>1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E09</td>
+<td>flash</td>
+<td>sup-log-to-terminal</td>
+<td>FAIL</td>
+<td>68</td>
+<td>7.4%</td>
+<td>1</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E10</td>
+<td>flash</td>
+<td>ac-deep-link-return</td>
+<td>FAIL</td>
+<td>40</td>
+<td>5.0%</td>
+<td>2</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E11</td>
+<td>flash</td>
+<td>as-variant-processed-once</td>
+<td>FAIL</td>
+<td>14</td>
+<td>7.1%</td>
+<td>0</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E12</td>
+<td>flash</td>
+<td>ar-compact-positions</td>
+<td><strong>PASS</strong></td>
+<td>74</td>
+<td>4.1%</td>
+<td>1</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E13</td>
+<td>flash</td>
+<td>av-toc-cache-per-role</td>
+<td>FAIL</td>
+<td>157</td>
+<td>1.9%</td>
+<td>1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E14</td>
+<td>flash</td>
+<td>sec-audit-sweep</td>
+<td>UNGRADED</td>
+<td>44×2</td>
+<td>0%</td>
+<td>0</td>
+<td>no plan twice</td>
+</tr>
+<tr>
+<td>E15</td>
+<td>flash</td>
+<td>ar-announce-once</td>
+<td><strong>PASS</strong></td>
+<td>64</td>
+<td>3.1%</td>
+<td>2</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E16</td>
+<td>flash</td>
+<td>aj-enqueue-after-commit</td>
+<td><strong>PASS</strong></td>
+<td>51</td>
+<td>2.0%</td>
+<td>1</td>
+<td>a1 blank → retry</td>
+</tr>
+<tr>
+<td>E17</td>
+<td>flash</td>
+<td>sup-legacy-conversions</td>
+<td><strong>PASS</strong></td>
+<td>146</td>
+<td>4.1%</td>
+<td>6</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E18</td>
+<td>flash</td>
+<td>ar-tenant-isolation</td>
+<td>FAIL</td>
+<td>189</td>
+<td>13.2%</td>
+<td>12</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E19</td>
+<td>flash</td>
+<td>aj-resumable-cleanup</td>
+<td><strong>PASS</strong></td>
+<td>35</td>
+<td>8.6%</td>
+<td>3</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E20</td>
+<td>flash</td>
+<td>tst-error-page-flake</td>
+<td>FAIL</td>
+<td>68</td>
+<td>5.9%</td>
+<td>3</td>
+<td>a1 blank; plumbing loss</td>
+</tr>
+<tr>
+<td>E21</td>
+<td>flash</td>
+<td>ar-archive-book-access</td>
+<td><strong>PASS</strong></td>
+<td>58</td>
+<td>3.4%</td>
+<td>1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E22</td>
+<td>flash</td>
+<td>ar-atomic-import</td>
+<td><strong>PASS</strong></td>
+<td>82</td>
+<td>4.9%</td>
+<td>2</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E23</td>
+<td>flash</td>
+<td>sup-cache-library-digest</td>
+<td><strong>PASS</strong></td>
+<td>44</td>
+<td>4.5%</td>
+<td>1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E24</td>
+<td>flash</td>
+<td>ar-release-recap</td>
+<td><strong>PASS</strong></td>
+<td>48</td>
+<td>10.4%</td>
+<td>1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E25</td>
+<td>flash</td>
+<td>ac-throttle-search</td>
+<td><strong>PASS</strong></td>
+<td>183</td>
+<td>6.0%</td>
+<td>3</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E26</td>
+<td>flash, avalon tree (ENV-06)</td>
+<td>sup-legacy-conversions (CUTlegacy)</td>
+<td><strong>PASS</strong></td>
+<td>94</td>
+<td>6.4%</td>
+<td>7</td>
+<td>C1 green first time</td>
+</tr>
+</tbody>
+</table>
+<p><strong>E27 — Calibration totals:</strong> 10 PASS · 10 FAIL · 1
+ungraded (audit) · 20–25 m/run clean · $3.20 total.</p>
+<hr />
+<h2 id="l--decision-log-mirror-of-docomodel-opsdecision_logmd">L —
+Decision log (mirror of
+<code>doco/model-ops/DECISION_LOG.md</code>)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Date</th>
+<th>Decision</th>
+<th>Driver(s) — why</th>
+<th>Evidence</th>
+<th>Result / consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L01</td>
+<td>2026-08-27</td>
+<td>Adopt <code>pi</code> (earendil-works/pi-coding-agent) as the
+local-model executor instead of OpenClaw-native subagents</td>
+<td>OpenClaw subagents fed XML/text tool dialects
+(<code>call:write{...}</code>, <code>&lt;function=...&gt;</code>) that
+oMLX rejected/stripped; <code>pi</code> speaks standard OpenAI
+<code>tools</code> JSON → 100% native tool execution on oMLX/LM
+Studio</td>
+<td><code>doco/model-ops/PI_HARNESS_LOCAL_MODELS.md</code>
+(VALIDATED)</td>
+<td>Qwen 3.8 27B 4-bit proven as champion local worker (0 tool
+errors)</td>
+</tr>
+<tr>
+<td>L02</td>
+<td>2026-08-28</td>
+<td>Re-rank models by agentic execution, not static rubric</td>
+<td>Static winners (IQuest 95/100) failed agentically; harness
+mechanics, not code intelligence, were the bottleneck</td>
+<td><code>LOCAL_MODEL_BENCHMARK_RECONCILIATION.md</code> §1–2</td>
+<td>Qwen 27B = primary local executor; IQuest/Gemma demoted</td>
+</tr>
+<tr>
+<td>L03</td>
+<td>2026-09-06</td>
+<td>Run the real lemans / rails-ai-evals harness (open-sourced that day)
+instead of our custom 4-task pilot</td>
+<td>lemans became open-source + shipped a Docker backend — the
+Daytona-account blocker disappeared; pilot was single-turn, no hidden
+tests, not leaderboard-comparable</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §1</td>
+<td>First real, public-methodology-comparable local numbers (Table B:
+0/11, all walls)</td>
+</tr>
+<tr>
+<td>L04</td>
+<td>2026-09-06</td>
+<td>Wire lemans via the <code>ollama</code> provider, not
+<code>openai</code></td>
+<td><code>openai_api_base</code> silently never forwarded (miniswen's
+<code>configuration_requirements</code> omits it) → agent called real
+<code>api.openai.com</code>; <code>ollama</code> auto-forwards
+<code>OLLAMA_API_BASE</code> + zero-cost pricing</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §3.2</td>
+<td>Clean provider path; no RUBYOPT hacks</td>
+</tr>
+<tr>
+<td>L05</td>
+<td>2026-09-06</td>
+<td>Accept <code>network.mode: public</code> in the sandbox</td>
+<td>Docker backend doesn't support <code>allowlist</code>
+(Daytona-only)</td>
+<td><code>LEMANS_LOCAL_HARNESS_PLAN.md</code> §3.3</td>
+<td>Documented rigor reduction; local runs could reach the internet</td>
+</tr>
+<tr>
+<td>L06</td>
+<td>2026-09-06</td>
+<td>Stop benchmark after 2 stages — enough lemans signal</td>
+<td>Gemma 0/3 (tool-casing), Qwen 0/2 (both walls); pattern established,
+move to RAG layer</td>
+<td><code>memory/2026-09-06.md</code> 21:12;
+<code>LOCAL_DEV_AGENT_THESIS.md</code></td>
+<td>Next phase = RAG layer build</td>
+</tr>
+<tr>
+<td>L07</td>
+<td>2026-09-07</td>
+<td>Test the harness hypothesis: miniswen → <code>pi</code> (with edit
+tools)</td>
+<td>8 miniswen runs, zero edit calls, bash-only; one run re-ran the same
+grep 61×; "failure = converting a known answer into an edit"</td>
+<td><code>JOURNEY.md</code> §4;
+<code>harness-hypothesis-session-kickoff.md</code></td>
+<td>Exp 1: FAIL even with edit tools (still 0 edits!)</td>
+</tr>
+<tr>
+<td>L08</td>
+<td>2026-09-07</td>
+<td>Add the 4-line stopping rule to the pi prompt</td>
+<td>Exp 1 proved tools alone changed nothing; the model never stops
+investigating (47× one grep)</td>
+<td><code>00_INDEX_AND_JOURNEY.md</code> §11</td>
+<td>First local PASS (Exp 1b, 21 m 16 s, voluntary stop); 3/3 on
+<code>ac-throttle-search</code></td>
+</tr>
+<tr>
+<td>L09</td>
+<td>2026-09-07/08</td>
+<td>Overnight queue with stopping rule + 4 named prompt additions</td>
+<td>Replicate §11; find what breaks the repetition loop (20–82% dup in
+failures)</td>
+<td><code>JOURNEY.md</code> §12;
+<code>evidence/RESULTS_TABLE.md</code></td>
+<td>1/7 PASS; <code>sup-legacy</code> 0/4, <code>sup-log</code> 0/2 →
+stopping rule is single-locus only</td>
+</tr>
+<tr>
+<td>L10</td>
+<td>2026-09-08</td>
+<td>Two-phase pipeline (survey → execute → verify)</td>
+<td>Survey with read-only tools looped far less (2.6–5% dup); separate
+planning from editing</td>
+<td><code>PHASED_RUN_DESIGN.md</code></td>
+<td>Phase A became the bottleneck: 8/10 blank plans</td>
+</tr>
+<tr>
+<td>L11</td>
+<td>2026-09-08</td>
+<td>Forced emission — force a plan even on survey timeout</td>
+<td>Phase A never converges — 8 blank plans, 3 at 0% duplication; a
+survey that reads honestly must still emit (salvaged 7/7 plans, all
+complete)</td>
+<td><code>SCOREBOARD.md</code> §2i</td>
+<td>FE1/FE2/FE3 PASS (3/4 graded); cutover <code>FE1</code> = first
+graded run from new repo</td>
+</tr>
+<tr>
+<td>L12</td>
+<td>2026-09-08</td>
+<td>Build loop guard + stall detector</td>
+<td>Duplication 6.8–52.9% in failures vs 0% in passes; one stall sat
+silent 33 min (three-quarters of a 45-min budget)</td>
+<td><code>SCOREBOARD.md</code> §2h</td>
+<td>Guard tripped once (KBrep2__a2); 4/8 blanks were ≤3.1% dup — loops
+were the minority case</td>
+</tr>
+<tr>
+<td>L13</td>
+<td>2026-09-08</td>
+<td>Inject 1.6 KB curated Rails upgrade notes into phase A</td>
+<td>Bphase4: correct scope, wrong remedy — model never found
+<code>to_fs</code>; a named missing fact, not retrieval</td>
+<td><code>SCOREBOARD.md</code> §2g</td>
+<td>Bprobe PASS, byte-identical to oracle; 2 passes from 8 attempts
+(KBrep2 blanked)</td>
+</tr>
+<tr>
+<td>L14</td>
+<td>2026-09-09</td>
+<td>Cloud calibration (deepseek-flash, 21 tasks, US$10 cap)</td>
+<td>Local results provisional; need a harness-lift number on a known
+model; leaderboard had 63 miniswen trials of the same model</td>
+<td><code>BACKLOG.md</code> M9–M11; <code>SCOREBOARD.md</code> §2k</td>
+<td>10/20 PASS, $3.20 — no lift, no harm; matches its own leaderboard
+profile</td>
+</tr>
+<tr>
+<td>L15</td>
+<td>2026-09-09</td>
+<td>SPEC-2 experiment programme (held-out tasks, coverage check,
+plumbing)</td>
+<td>Answer the one question: can the local model + harness + blind sheet
+be trusted, at what pass rate, at what curation cost</td>
+<td><code>SCOREBOARD.md</code> §2k</td>
+<td>Held-out 1/8; sheet 0/3 with fact present, 1/3 absent; 2 of 17
+misses were knowledge</td>
+</tr>
+<tr>
+<td>L16</td>
+<td>2026-09-10</td>
+<td>Pivot to cloud-first — stop active local investment</td>
+<td>Local 10/41 graded (1/8 unseen tasks) vs flash cloud 50% at
+$0.15/run; failures mostly process, and the harness that fixes them
+lifts any model</td>
+<td><code>2026-09-10_EVIDENCE_LOCAL_VS_CLOUD.md</code>;
+<code>STATUS.md</code> 09:50</td>
+<td>Local hosts become free replication capacity; harness work continues
+cloud-first</td>
+</tr>
+<tr>
+<td>L17</td>
+<td>2026-09-10</td>
+<td>Migrate to <code>avalon-speedway</code> (SPEC-3)</td>
+<td>Pivot confirmed; keep <code>model-ops</code> frozen as the private
+record</td>
+<td><code>REVIEW-3.md</code></td>
+<td>Migration reviewed PASS; <code>CUTlegacy</code> PASS from new tree
+(C1 green first time)</td>
+</tr>
+</tbody>
+</table>
+
   </div>
 </section>
 

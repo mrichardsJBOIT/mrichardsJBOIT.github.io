@@ -10,6 +10,8 @@ I've been running an evaluation programme against the [rails/ai-evals](https://g
 
 The full write-up lives on the [Model Ops Lab project page](/projects/model-ops-lab/), with every figure sourced. This post is the story in my own words.
 
+> **Update, 10 September — [the number that changed the plan](/2026/09/10/model-ops-programme-part-2.html).** The overnight test came back 1 of 8 on unseen tasks, the sheet's own facts did not convert known misses, a cloud lane through the same harness passed 10 of 20 at $3.20 — and the generation tier moved to the cloud. The local model stays on as free replication capacity.
+
 <!--more-->
 
 ## The idea that didn't survive contact
@@ -57,3 +59,7 @@ For the software factory this is genuinely encouraging: the routing rule now has
 The programme has moved to its own repo and keeps running — mostly overnight, while I sleep. (It's not public yet — the migration plan for a public version, codenamed "avalon", is drafted.)
 
 Be patient and persevere.
+
+---
+
+**Next:** [The model-ops programme, part 2 — the number that changed the plan](/2026/09/10/model-ops-programme-part-2.html) — the overnight test, the cloud lane, and the pivot.
