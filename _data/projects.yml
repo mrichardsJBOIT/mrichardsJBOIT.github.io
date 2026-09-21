@@ -25,3 +25,7 @@
   url: /projects/model-ops-lab/
   tag: Local LLMs · RAG
   description: Running local LLMs (Gemma, Qwen, IQuest) on my own hardware and benchmarking them for Rails dev-agent work — the retrieval layer, the stopping rule, and the cloud-first pivot that the overnight test forced. Slower than the cloud, a lot more interesting.
+- name: exo cluster post-mortem
+  url: /projects/exo-cluster/
+  tag: Local LLMs · Thunderbolt
+  description: Nine days, three Macs, zero files — a distributed inference cluster that never got hot and never finished a job. The 1.42-token-per-second ceiling, the 52,220 clock-skew rejections, and the pivot to a software factory. The negative half of the local-AI evidence.
