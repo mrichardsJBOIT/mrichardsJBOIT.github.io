@@ -4,3 +4,6 @@ _site/
 .bundle/
 vendor/
 _site/
+
+# macOS
+.DS_Store

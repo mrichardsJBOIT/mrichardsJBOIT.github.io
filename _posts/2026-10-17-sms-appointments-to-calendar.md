@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Teaching my phone to put its own appointments in my calendar"
-description: "I wanted texts about appointments to land in my calendar automatically. Getting there meant fighting Android's SMS restrictions, a retired phone command, an auth model that treats personal accounts as second-class citizens, and a proxy that silently broke everything. Here's what actually worked."
+description: "I wanted texts about appointments to land in my calendar automatically. Getting there meant fighting Android's SMS restrictions, a command I wrongly believed had been retired, an auth model that treats personal accounts as second-class citizens, and a proxy that silently broke everything. Here's what actually worked."
 author: Mark Richards
 date: 2026-10-17
 ---
@@ -32,7 +32,13 @@ Every one of those questions turned out to have a wall behind it.
 
 So I set out to build it: watch my SMS, work out which messages are real appointments, and write those straight into my calendar. Local models only, no cloud.
 
-What follows is the honest version — including the four places the stack actively resisted, because those turned out to be more interesting than the bits that just worked.
+That last constraint wasn't a purist's reflex. It was the whole reason I bothered building this myself instead of wiring up a subscription. These are **my private texts** — appointment times, a specialist's name, a clinic's address, the fact that I'm seeing someone at all. Some of it is medical. Some of it is money. All of it is the kind of thing that lives in a notification shade precisely because it's not meant for an audience.
+
+The obvious alternative — point a cloud service at it and let a hosted model sort the wheat from the chaff — means every one of those messages leaves the house and lands on someone else's GPU. Not because anyone is doing anything wrong, but because that is what the architecture is. A classifier you rent is a classifier that reads your post.
+
+So the deciding runs on a box in my office, on the same network as the phone. The text is classified, and the *derived event* is the only thing that gets written anywhere. The raw message never crosses a boundary I don't own.
+
+What follows is the honest version — including the four places the stack actively resisted, because those turned out to be more interesting than the bits that just worked. One of them, I should say up front, was not the stack resisting at all. It was me.
 
 ## The shape of the thing
 
@@ -44,7 +50,7 @@ The design is simple to describe:
 4. If it is confident, write the event to my calendar.
 5. Everything else gets ignored silently.
 
-Five steps. Four of them fought back.
+Five steps. Four of them fought back — and one of those four was entirely my own misreading, which I'll come to.
 
 <figure class="diagram">
 <svg viewBox="0 0 720 400" role="img" aria-label="Sequence diagram: an SMS arrives on the phone, a home machine polls it every five minutes, a local model classifies the message, a gate checks it, and only a confident appointment with a parseable date is written to the calendar; the outcome is fed back into an example store." xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
@@ -114,19 +120,25 @@ There is a workaround: temporarily set the automation app as the default messagi
 
 The trade-off is real and worth stating plainly: a notification listener is **not a queue**. It sees messages as they arrive, while it is running and connected. It cannot scroll back through your existing inbox. If the app is offline when a message lands and the notification is later dismissed, that message is simply gone from your pipeline's point of view. For a "new appointments as they happen" feature, that is fine. For "process my whole history", it is useless.
 
-## Problem two: the command I needed had been retired
+## Problem two: the command I was sure had been retired
 
-With notifications flowing, the next job was writing to the calendar — and this is where the documentation and the running system disagreed with each other.
+With notifications flowing, the next job was writing to the calendar — and this is where I misread the running system in a way that cost me the rest of the evening.
 
 The platform's command policy listed a calendar-write command as *dangerous by default*, requiring an explicit opt-in allowlist entry. Fine. I added it to the allowlist.
 
 The error changed from "requires opt-in" to **"the platform does not support this command."**
 
-Digging into the shipped policy code, the command was in a set called `RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS` — sitting alongside camera capture, screen recording, and UI automation. It had not merely been disabled; it had been **withdrawn**. The phone could read calendars all day, but nothing in this build could write to one.
+So I went digging. I found a set called `RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS` in the shipped policy code, sitting alongside camera capture, screen recording, and UI automation, and concluded the command had been **withdrawn** — not disabled, retired. The phone could read calendars all day, but nothing in this build could write to one.
 
-This is the kind of thing documentation drifts on. A doc comment says "gated"; the lockfile, or in this case the policy module, says "retired". Always believe the running code.
+That conclusion was wrong, and I want to be precise about why, because the mistake is more interesting than the fix.
 
-**The fix was to stop trying to write from the phone at all.** Write from a machine that already has a proper API path. Which led directly to problem three.
+`RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS` is not a runtime policy. It is a **migration table for `openclaw doctor`**, and it belongs to a removed plugin called Phone Control. It lists the deny entries that plugin used to seed into config, so that doctor can find and strip them out. It blocks nothing while the Gateway is running. I had read a cleanup routine as an enforcement rule.
+
+The genuinely confusing part is why the original attempt failed at all. The command is on the Gateway's allowed list — `gateway.nodes.commands.allow` — and the phone advertises it. The most likely explanation is that the node simply wasn't advertising the command at the time, because the permission hadn't been granted yet or the node hadn't reconnected after the allowlist edit. I never proved that, so I'll leave it as the honest guess it is.
+
+**The practical outcome was the same, and it led directly to problem three: I stopped trying to write from the phone.** Write from a machine that already has a proper API path.
+
+*Postscript, added later the same night:* the expedition isn't actually over. Once the node was healthy again, `calendar.add` from the Gateway worked — no OAuth, no scopes, no token audience, just a node command with `calendarId: 7` pointing at the right calendar. That is a real second write path, and a cheaper one. It is not what shipped, but it is worth knowing it exists before you conclude the platform won't let you.
 
 ## Interlude: what the agent already had
 
@@ -201,6 +213,26 @@ The fix is trivial once found — explicitly bypass the proxy for local addresse
 - Outcomes are appended to a file and fed back into the prompt as few-shot examples. It gets better at *your* messages specifically, rather than messages in general.
 
 The classification runs entirely on hardware I own, over a network I control. The only external service is the calendar API itself, because that is where the calendar lives.
+
+### Why the local model matters, concretely
+
+It's worth being specific about what "local" is buying, because "privacy" gets used loosely and this is a case where it's literal.
+
+A text from a medical centre contains a name, a time, and often a reason. A text from a client contains a name and a commercial intent. A credit-card alert contains a partial account number. If a hosted model classified those, the message body would be sitting in someone else's logs, retained under someone else's policy, and quite possibly reviewable by people I will never meet.
+
+With the classifier running on my own machine, there is no request to leak, because there is no request. The failure mode isn't "we promise not to train on it" — it's that the data never had anywhere to go. That is a stronger property than any privacy policy, and it's the one I actually wanted.
+
+### Still open: a dedicated session for push
+
+There is one place this guarantee currently has a hole in it, and it's the next thing on my list.
+
+Polling every five minutes is fine, but it has a latency floor and — more importantly — it's a cursor, not a queue. If the phone app is offline when a message lands and the notification is later dismissed, that message is gone from the pipeline's point of view. Push would fix the latency, and in some cases the loss.
+
+The Android app can forward notification events the moment they arrive, filtered to just the Messages app. The catch is *where those events land*: forwarded notifications are routed into an **agent session** by default. And an agent session is backed by a language model. If that model is a cloud model, the text I just spent this whole article keeping in the house is now leaving it — as a chat message, on its way to a session, with the raw body attached.
+
+So the work isn't "turn on push". It's standing up a **dedicated session or agent pinned to the oMLX server** — the local inference box — and routing forwarded notifications into that, so the text is read by a model running on hardware I own, exactly like the classifier does now. Push then inherits the same property the polling path has, instead of quietly undoing it.
+
+That's still under investigation. It is not shipped, and I am not going to describe it as working until I have watched a real text arrive and confirmed it never touched a cloud provider. Until then, polling stays.
 
 <figure class="diagram">
 <svg viewBox="0 0 720 300" role="img" aria-label="Decision flow: a message arrives, is it an appointment? If no, drop it silently. If yes, is the confidence at or above the floor? If no, escalate to chat. If yes, is there a parseable date? If no, demote to review. If yes, write the event to the calendar." xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
@@ -278,11 +310,12 @@ And crucially — the agent could *narrate its own failure*. When the proxy sile
 
 ## The bits I'd tell you to remember
 
-1. **Believe the running system over the documentation.** A doc comment said "gated". The shipped policy said "retired". They were both in the same repository.
+1. **A migration table is not a policy.** I read a cleanup routine (`RETIRED_PHONE_CONTROL_SEEDED_DENY_COMMANDS`) as an enforcement rule and concluded a command had been withdrawn. It hadn't. Read what the code *does*, not just what it's called.
 2. **A permission with the right name and the wrong audience is not the right permission.** `SMTP.Send` and `Mail.Send` are not interchangeable, and the error message will not explain why.
 3. **Scopes are consent.** No amount of token refreshing substitutes for a human approving access once.
 4. **Your local calls are probably going through a proxy you forgot about.** If the same request behaves differently from two different tools, suspect the transport before the server.
 5. **Never let a fallback path look like a success path.** If it can fail quietly and produce plausible output, add a loud marker so it can't.
+6. **A "does not support this command" error may just mean the node is stale.** Reconnect and retry before you redesign around it.
 
 The whole thing took an afternoon, two of which were spent on the proxy.
 
