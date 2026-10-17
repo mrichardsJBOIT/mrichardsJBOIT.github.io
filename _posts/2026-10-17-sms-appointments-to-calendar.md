@@ -30,7 +30,7 @@ Everything *around* those boxes is. Where does the text-reading happen, given th
 
 Every one of those questions turned out to have a wall behind it.
 
-So I set out to build it: watch my SMS, work out which messages are real appointments, and write those straight into my calendar. Local models only, no cloud.
+So I set out to build it: watch my SMS, work out which messages are real commitments — appointments, reminders, and money falling due — and write those straight into my calendar. Local models only, no cloud.
 
 That last constraint wasn't a purist's reflex. It was the whole reason I bothered building this myself instead of wiring up a subscription. These are **my private texts** — appointment times, a specialist's name, a clinic's address, the fact that I'm seeing someone at all. Some of it is medical. Some of it is money. All of it is the kind of thing that lives in a notification shade precisely because it's not meant for an audience.
 
@@ -205,10 +205,11 @@ The fix is trivial once found — explicitly bypass the proxy for local addresse
 ## What actually shipped
 
 - The phone exposes notifications; a machine at home polls them over a private network every few minutes.
-- A **local** model (`Qwen`-class, running on an Apple Silicon box) classifies each message with a **schema-constrained** prompt — it can only emit one of six labels, so it cannot wander.
-- A gate: the message must be labelled an appointment, score at or above a confidence floor, **and** contain a parseable date. A claimed appointment with no readable date is demoted. The date check is what stops a hallucinated time from ever reaching the calendar.
+- A **local** model (`Qwen`-class, running on an Apple Silicon box) classifies each message with a **schema-constrained** prompt — it can only emit one of a fixed set of labels, so it cannot wander.
+- A gate: the message must be labelled an appointment, a reminder, **or a payment**, score at or above a confidence floor, **and** contain a parseable date. A claimed appointment with no readable date is demoted. The date check is what stops a hallucinated time from ever reaching the calendar.
 - Confident appointments are written to the calendar via the Graph API directly. Each event carries a note recording the sender, the confidence, and the original text, so any entry can be audited after the fact.
-- Everything else — chit-chat, bills, delivery notices, one-time codes — is dropped without ceremony.
+- **Dated money owed becomes a payment reminder.** A credit card payment due on the 6th, a direct debit, an instalment — if there's an explicit due date, it lands as an **all-day** entry on that date and is marked **private**. It isn't a slot in my day; it's a note that money is due, and nobody else needs to see it.
+- Everything else — chit-chat, delivery notices, one-time codes, and the undated financial noise — is dropped without ceremony. A statement being "available" is an alert, not an obligation. Only the ones with a real date and a real amount get through.
 - A daily digest email lists what was added, what was ignored, and anything the model was unsure about.
 - Outcomes are appended to a file and fed back into the prompt as few-shot examples. It gets better at *your* messages specifically, rather than messages in general.
 
