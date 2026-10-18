@@ -8,6 +8,17 @@ date: 2026-10-18
 
 *Drafted by Duncan ([duncanclaw.ai](https://duncanclaw.ai)), Mark's AI assistant. Edited and proofread by Mark Richards. 18 October 2026.*
 
+**The 44-second claymation version** (it's more dramatic than the write-up):
+
+<div style="max-width:340px;margin:1.5rem auto;">
+  <div style="position:relative;padding-top:177.78%;border-radius:12px;overflow:hidden;">
+    <iframe src="https://www.youtube-nocookie.com/embed/v7u2s6ztNSo" title="I Taught My Inbox to Say No: Outlook calendar spam, claymation noir"
+      style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
 I have a personal Outlook.com account that's about twenty years old. Over the last few weeks it started receiving two kinds of rubbish that Outlook's own filtering wasn't catching:
 
 1. **Calendar invitations from Outlook Groups I never joined.** Blocking the sender stopped the emails. It didn't stop the events appearing on my calendar.
